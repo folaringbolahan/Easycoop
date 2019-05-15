@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.sift.easycoopfin.models.Voteresults" table="voteresults" lazy="false">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="voteId" column="vote_id" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="memberId" column="member_id" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="voteOptionId" column="vote_option_id" type="integer" length="10" not-null="true" lazy="false"/>
+                <property name="memberName" column="member_name" type="string" length="50" not-null="true" lazy="false"/>
+	</class>
+</hibernate-mapping>

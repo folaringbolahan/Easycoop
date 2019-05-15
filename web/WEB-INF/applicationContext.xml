@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:p="http://www.springframework.org/schema/p"     
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:task="http://www.springframework.org/schema/task"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd 
+    http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+  
+    <!-- to activate annotations in beans already registered in the application context -->
+    <context:annotation-config />
+    
+    <!-- scans packages to find and register beans within the application context --> 
+    <context:component-scan base-package="com.sift" />     
+    <!--<context:component-scan base-package="com.sift.loan" />-->
+
+
+    <!-- turn on spring transaction annotation -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+ 
+    <!-- Transaction Manager -->
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+ 
+    <!-- Session Factory -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="annotatedClasses">
+            <list>
+		<value>com.sift.admin.model.Country</value>
+		<value>com.sift.admin.model.Currency</value>
+		<value>com.sift.admin.model.User</value>
+		<value>com.sift.admin.model.UserRole</value>
+		<value>com.sift.admin.model.UserGroup</value>
+		<value>com.sift.admin.model.AddressEntries</value>
+		<value>com.sift.admin.model.AddressItems</value>
+		<value>com.sift.admin.model.AddressType</value>
+		<value>com.sift.admin.model.InterestType</value>
+		<value>com.sift.admin.model.FiscalPeriod</value>
+		<value>com.sift.admin.model.FiscalPeriodItem</value>
+		<value>com.sift.admin.model.AppConfiguration</value>
+		<value>com.sift.loan.model.LoanDisbursement</value>
+	        <value>com.sift.loan.model.LoanRequest</value>
+	        <value>com.sift.loan.model.LoanRepayment</value>
+	        <value>com.sift.admin.model.LoanRepayFreq</value>
+	        <value>com.sift.loan.model.LoanRepaymentSchedule</value>
+	        <value>com.sift.admin.model.Branch</value>
+	        <value>com.sift.admin.model.Company</value>
+	        <value>com.sift.admin.model.CountryAddressFilter</value>
+	        <value>com.sift.admin.model.TaxGroup</value>
+	        <value>com.sift.admin.model.Tax</value>
+	        <value>com.sift.admin.model.MemberView</value>
+	        <value>com.sift.loan.model.Product</value>
+	        <value>com.sift.loan.model.LoanRequestException</value>
+	        <value>com.sift.loan.model.LoanGuarantor</value>    	        
+	        <value>com.sift.admin.model.ModuleMenu</value>            
+	        <value>com.sift.admin.model.Module</value> 
+	        <value>com.sift.admin.model.Usergrpmdl</value>
+                <value>com.sift.loan.model.FileUpload</value> 
+                <value>com.sift.loan.model.RepaymentUploadItems</value>
+	        <value>com.sift.loan.model.RepaymentUploadErrors</value>    
+                <value>com.sift.admin.model.Reports</value>
+                <value>com.sift.admin.model.ReportGroup</value>
+                <value>com.sift.admin.model.TaxGroupItem</value>                
+                <value>com.sift.admin.model.Bank</value> 
+	        <value>com.sift.admin.model.IdentificationDoc</value>                
+                <value>com.sift.loan.model.BalloonPayment</value>       
+                <value>com.sift.loan.model.BulkLoanRePayment</value> 
+                <value>com.sift.loan.model.LoanPayOff</value>
+                <value>com.sift.admin.model.AuthPermit</value>
+                <value>com.sift.loan.model.LoanPayOffUploadItems</value>
+                <value>com.sift.loan.model.LoanPayOffUploadErrors</value>
+                <value>com.sift.webservice.model.LoanRequestWS</value>
+                <value>com.sift.webservice.model.LoanGuarantorWS</value>  
+                 <value>com.sift.webservice.model.UserWS</value> 
+                <value>com.sift.gl.model.MemberImp</value> 
+                <value>com.sift.gl.model.Products</value> 
+                <value>com.sift.gl.model.FileUploadImp</value>     
+                <value>com.sift.gl.model.FileUploadErrors</value> 
+                <value>com.sift.gl.model.FileUploadItems</value> 
+                <value>com.sift.gl.model.AccountsImp</value> 
+                <value>com.sift.gl.model.Custaccountdetails</value> 
+                <value>com.sift.gl.model.SmsLog</value> 
+                <value>com.sift.admin.model.Settingcoop</value>
+                <value>com.sift.loan.model.LoanGuarantorChange</value>
+                <value>com.sift.admin.model.MemberCategory</value>
+                <value>com.sift.admin.model.MemberExtraFieldGrp</value>
+                <value>com.sift.admin.model.MemberExtraField</value>
+              
+                <value>com.sift.votes.model.VotActivityLog</value>
+                <value>com.sift.votes.model.VotAgm</value>
+                <value>com.sift.votes.model.VotBallottypes</value>
+                <value>com.sift.votes.model.VotCompany</value>
+                <value>com.sift.votes.model.VotCreds</value>
+                <value>com.sift.votes.model.VotElectionanswertypes</value>
+                <value>com.sift.votes.model.VotMembers</value>
+                <value>com.sift.votes.model.VotResolanswertypes</value>
+                <value>com.sift.votes.model.VotVoteoptions</value>
+                <value>com.sift.votes.model.VotVotequests</value>
+                <value>com.sift.votes.model.VotVotetypes</value>
+                <value>com.sift.votes.model.Votpagesession</value>
+                <value>com.sift.votes.model.VotVoteresults</value>
+                <value>com.sift.votes.model.VotFileUpload</value>
+                <value>com.sift.votes.model.VotMembersErrors</value>
+                <value>com.sift.votes.model.VotAgmDeactivation</value>
+                <value>com.sift.votes.model.VotMemberMail</value>
+                <value>com.sift.votes.model.VotMemberFile</value>
+                <!--<value>com.sift.admin.model.EmployeeModel</value-->
+                 <value>com.sift.financial.member.MemberProfileUpdate</value>
+                <value>com.sift.webservice.model.MemberProfileUpdateWS</value>
+                <value> com.sift.financial.member.MemberEmailChange</value>
+                
+	     </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>        
+        <property name="packagesToScan" >
+	<list>
+                <value>com.sift.admin.controller</value>
+	        <value>com.sift.loan.controller</value>
+                <value>com.sift.loan.utility</value>
+                             </list>	    
+    	 </property>
+    </bean>
+ 
+    <!-- dataSource configuration -->
+   <!-- <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+        p:driverClassName="com.mysql.jdbc.Driver"
+        p:url="jdbc:mysql://127.0.0.1:3306/easycoopfin"
+        p:username="root"
+        p:password="Africaprudentials$" />
+    -->
+    
+    <bean id="dataSource"
+        class="org.springframework.jndi.JndiObjectFactoryBean"
+        p:jndiName="java:comp/env/jdbc/easycoopfin"
+         />
+
+    
+    
+    <!-- custom utility class config  -->
+    <bean id="helperUTIL" class="com.sift.loan.utility.HelperUtility">
+            <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <!-- uploading configuration -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="10000000"/>
+    </bean>
+       <!--Trigger for cronJobs--> 
+        <!--
+  <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+      <property name="jobDetails">
+    			<list>
+    				<ref bean="savingsTask" />
+    				<ref bean="glPostingTask" />
+    			</list>
+    		</property>
+        <property name="triggers">
+            <list>
+                <ref bean="savingsTrigger"/>
+                <ref bean="glPostingTrigger"/>
+            </list>
+        </property>
+    </bean>
+     --> 
+    <!--CronJobs Defined--> 
+        <!--
+    <bean id="savingsTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="savingsTask" />
+        <property name="cronExpression" value="0 0/3 * * * ?" />
+    </bean>
+   <bean id="glPostingTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="glPostingTask" />
+        <property name="cronExpression" value="0 0/5 * * * ?" />
+    </bean> 
+   
+    
+    <bean id="savingsTask" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="com.sift.savings.utility.SavingsCron" />
+    </bean>
+    
+    <bean id="glPostingTask" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass" value="com.sift.savings.utility.GlPostCron" />
+    </bean> 
+    -->
+    <!-- ************************************************************************* -->
+    <!--          	JOB SCHEDULER CONFIGURATION STARTS HERE        		   -->
+    <!-- ************************************************************************* -->
+   
+    
+           
+    
+    <bean id="RPTask" class="com.sift.loan.utility.EazyCoopUtility" />    
+    	
+    	<!--
+    	<bean name="LRPJob" class="org.springframework.scheduling.quartz.JobDetailBean">     
+    		<property name="jobClass" value="com.sift.loan.utility.FileUploadJob" />     
+    		<property name="jobDataAsMap">
+    		  <map>
+    			<entry key="runMeTask" value-ref="RPTask" />
+    		  </map>
+    		</property>     
+    	</bean>
+    	
+    	<bean name="BRPJob" class="org.springframework.scheduling.quartz.JobDetailBean">     
+		<property name="jobClass" value="com.sift.loan.utility.BulkRepaymentJob" />     
+		<property name="jobDataAsMap">
+		  <map>
+			<entry key="runMeTask" value-ref="RPTask" />
+		  </map>
+		</property>     
+    	</bean>
+     
+    	
+    	<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">     
+    		<property name="jobDetail" ref="LRPJob" />
+    		<property name="repeatInterval" value="5000" />
+    		<property name="startDelay" value="1000" />     
+    	</bean>
+     
+    	
+    	<bean id="LRPTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">     
+    		<property name="jobDetail" ref="LRPJob" />
+    		
+    		<property name="cronExpression" value="0 0/3 * * * ?" />     
+
+    	</bean>
+
+    	
+    	<bean id="BRPTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">     
+    		<property name="jobDetail" ref="BRPJob" />
+    		
+    		<property name="cronExpression" value="0 0/2 * * * ?" /> 
+    	</bean>
+    	
+    	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+    		<property name="jobDetails">
+    			<list>
+    				<ref bean="LRPJob" />
+    				<ref bean="BRPJob" />
+    			</list>
+    		</property>
+     
+    		<property name="triggers">
+    			<list>
+    				<ref bean="LRPTrigger" />
+    				<ref bean="BRPTrigger" />
+    			</list>
+    		</property>
+	</bean>   
+         -->  
+    <!-- ******************************************************************************* -->
+    <!--                 JOB SCHEDULER CONFIGURATION ENDS HERE    		         -->
+    <!-- ******************************************************************************* -->
+    
+    
+    <!-- LOLADE CONFIG-->
+    
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	   <property name="messageConverters">
+	       <list>
+	          	<ref bean="jsonConverter" />
+			
+	       </list>
+	   </property>
+	</bean>
+	
+	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+	   <property name="supportedMediaTypes" value="application/json" />
+	</bean>	
+        
+       
+    <bean name="productAccountController"
+          class="com.sift.products.controller.ProductAccountController"
+           />
+    <bean name="savingsController"
+          class="com.sift.savings.controller.SavingsController"
+           />
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+    <property name="corePoolSize" value="5" />
+    <property name="maxPoolSize" value="10" />
+    <property name="queueCapacity" value="25" />
+    </bean>
+    
+    
+    <!-- new eod config -->
+     <bean id="runEodTask" class="com.sift.gl.service.RuneodScheduler" /> 
+     <bean id="runvotTask" class="com.sift.votes.service.Votersremindernotif" /> 
+     
+    <bean name="eodJob" class="org.springframework.scheduling.quartz.JobDetailBean">     
+    		<property name="jobClass" value="com.sift.gl.service.EODJob" />     
+    		<property name="jobDataAsMap">
+    		  <map>
+    			<entry key="runEodTask" value-ref="runEodTask"/>
+    		  </map>
+    		</property>   
+    	</bean>
+    	
+    	<bean name="votingreminderJob" class="org.springframework.scheduling.quartz.JobDetailBean">     
+    		<property name="jobClass" value="com.sift.votes.service.VotingreminderJob" />     
+    		<property name="jobDataAsMap">
+    		  <map>
+    			<entry key="runvotTask" value-ref="runvotTask"/>
+    		  </map>
+    		</property>   
+    	</bean>     
+    	
+    	<bean id="EODTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">     
+    		<property name="jobDetail" ref="eodJob" />
+    		<property name="cronExpression" value="0 55 17 * * ?" />     
+          </bean>
+          <bean id="votTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">     
+    		<property name="jobDetail" ref="votingreminderJob" />
+    		<property name="cronExpression" value="0 25 20 * * ?" />     
+          </bean>
+          <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+    		<property name="jobDetails">
+    			<list>
+    				<ref bean="eodJob" />
+                                <ref bean="votingreminderJob" />
+    			</list>
+    		</property>
+                <property name="triggers">
+    			<list>
+    				<ref bean="EODTrigger" />
+                                <ref bean="votTrigger" />
+    			</list>
+    		</property>
+	</bean>  
+    
+    
+     
+    
+</beans>

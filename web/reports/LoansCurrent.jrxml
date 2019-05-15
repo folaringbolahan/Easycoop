@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LoansCurrent" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="410ff73e-edc3-4625-a525-73a68d1b39d1">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="EAZYCOOPFIN"/>
+	<parameter name="startdate" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="enddate" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="companyname" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="companyid" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="branchid" class="java.lang.String" isForPrompting="false"/>
+	<queryString language="SQL">
+		<![CDATA[select * from easycoopfin.loan_all_viu  where company_id=$P{companyid} and branch_id=$P{branchid}  and loan_status<>'D']]>
+	</queryString>
+	<field name="LOAN_CASE_ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MEMBER_COMP_ID" class="java.lang.String">
+		<fieldDescription><![CDATA[Member Identification At the Company]]></fieldDescription>
+	</field>
+	<field name="MEMBER_NO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LOAN_STATUS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COMPANY_ID" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COMPANY_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BRANCH_ID" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BRANCH_CODE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BRANCH_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LOAN_ID" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MEMBER_ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LOAN_TYPE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LOAN_STATUS_DESC" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="REQUEST_STATUS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="REQUEST_STATUS_DESC" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="REQUEST_BY" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="REQUEST_DATE" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="REQUESTED_AMOUNT" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="APPROVED_AMOUNT" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="APPROVED_BY" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="APPROVAL_DATE" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="APPROVAL_COMMENT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LOAN_INT_TOTAL" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NO_OF_INSTALLMENTS" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="OUTSTANDING_BAL_PR" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="OUTSTANDING_BAL_INT" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="OUTSTANDING_BAL_TOTAL" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LAST_REPAYMENT_DATE" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="REPAY_FREQUENCY" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="REPAY_AMOUNT" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TOTAL_PENALTY_DUE" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TOTAL_PENALTY_PAID" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LAST_MODIFIED_BY" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LAST_MODIFICATION_DATE" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="APPLIED_RATE" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DURATION" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LOAN_ACCOUNT_NUMBER" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRODUCT_RATE" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="INTEREST_TYPE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ACTUAL_COMMENCEMENT_RATE" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DISBURSE_BY" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DISBURSE_DATE" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PROPOSED_COMMENCEMENT_RATE" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="FIRST_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[Member First Name]]></fieldDescription>
+	</field>
+	<field name="MIDDLE_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[Member middle name]]></fieldDescription>
+	</field>
+	<field name="SURNAME" class="java.lang.String">
+		<fieldDescription><![CDATA[Member Surname]]></fieldDescription>
+	</field>
+	<field name="FULLNAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="720" y="0" width="100" height="20" uuid="0ff0324e-0d0e-4f8f-9586-dbcf0d4d12f5"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="200" height="20" uuid="b9a9a273-ca10-43e8-9bb7-a5d9aa23734e">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{companyname}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="200" y="3" width="400" height="30" forecolor="#4A201F" uuid="2b95e3cf-20dd-4e59-bee2-b4526ee07185">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial Black" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CURRENT LOANS ]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="77" splitType="Stretch">
+			<staticText>
+				<reportElement x="82" y="39" width="100" height="30" uuid="0c7f6ede-b265-4e97-a9ed-e7c9002bd1e5"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REF NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="41" width="80" height="30" uuid="bf063a30-3abb-4b15-86c9-ba3cc11f2242"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="39" width="110" height="30" uuid="6bd397fc-52aa-42e3-8140-d6bc0d671dc3"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MEMBER NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="286" y="40" width="100" height="30" uuid="563ebfd5-ebb8-4cec-a515-32742ac8b2ff"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRINCIPAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="382" y="41" width="100" height="30" uuid="f4f73fef-33a7-4744-a980-e8194d8f0ac2"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INTEREST]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="40" width="100" height="30" uuid="977a71a1-11b4-4c46-b3fa-445ccd15e608"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OUTSTANDING BAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="680" y="42" width="100" height="30" uuid="e21230fb-67da-4b96-a1d9-91d3e4bc6fd7"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PENALTY PAID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="580" y="42" width="100" height="30" uuid="24f88536-ae2d-4ec2-9eca-44c8278fa3f5"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PENALTY DUE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="58" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="13" width="82" height="21" uuid="eb98e879-3bca-454e-8233-c1db1b7b547d"/>
+				<textFieldExpression><![CDATA[$F{LOAN_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="12" width="100" height="22" uuid="68701412-7dee-4916-ad94-0e8670358104"/>
+				<textFieldExpression><![CDATA[$F{LOAN_CASE_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="12" width="100" height="22" uuid="6249f858-b1ac-441e-8633-8958113f6e56"/>
+				<textFieldExpression><![CDATA[$F{MEMBER_NO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="286" y="8" width="96" height="22" uuid="0d0de56a-2496-4195-97a6-31ce5a754d50"/>
+				<textFieldExpression><![CDATA[$F{APPROVED_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="382" y="4" width="100" height="30" uuid="46b50f1f-9972-4be8-a8d9-126d4759343d"/>
+				<textFieldExpression><![CDATA[$F{LOAN_INT_TOTAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="8" width="100" height="30" uuid="30292198-0c98-42a0-b6d9-2db4d6597136"/>
+				<textFieldExpression><![CDATA[$F{OUTSTANDING_BAL_TOTAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="580" y="8" width="100" height="30" uuid="f3101b89-8630-49dc-a236-8f16f3509c02"/>
+				<textFieldExpression><![CDATA[$F{TOTAL_PENALTY_DUE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="680" y="8" width="100" height="30" uuid="1e175a89-049e-417b-8e7a-e484d545c6e0"/>
+				<textFieldExpression><![CDATA[$F{TOTAL_PENALTY_PAID}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="640" y="-1" width="140" height="30" uuid="32a2ccb9-fc5f-4610-9d0a-d319cbf86e62"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="690" y="-1" width="100" height="30" uuid="4cce8a86-501b-4448-af56-74553c917e02"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="664" y="-1" width="100" height="30" uuid="4229f1ef-629e-42aa-8ab0-6801b095a097"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[of]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="613" y="0" width="46" height="30" uuid="a5e37367-ead0-4250-a0dc-7f2439812d48"/>
+				<textElement>
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Page]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+</jasperReport>

@@ -1,0 +1,208 @@
+body  {
+	margin: 0; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+	padding: 0;
+	text-align: center; /* this centers the container in IE 5* browsers. The text is then set to the left aligned default in the #container selector */
+	color: #000000;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	background-color: #FFFFFF;
+	width: 100%;
+}
+.easycoopfin #container { 
+	  /* this will create a container 80% of the browser width */
+	width: 100%;  
+	background: #FFFFFF;
+	margin: 0 auto; /* the auto margins (in conjunction with a width) center the page */
+	border: 1px solid #000000;
+	text-align: left; /* this overrides the text-align: center on the body element. */
+} 
+.easycoopfin #topmostmenu {
+	width: 96%;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 11px; /* the auto margins (in conjunction with a width) center the page */
+	text-align: right; /* this overrides the text-align: center on the body element. */
+	color: #FF3333;
+	text-decoration:none;
+	word-spacing: 6px;	
+}
+.easycoopfin #topmostmenu a:link {
+	width: 96%;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 11px; /* the auto margins (in conjunction with a width) center the page */
+	text-align: right; /* this overrides the text-align: center on the body element. */
+	color: #FF3333;
+	text-decoration:none;
+	font-weight:bold;
+	word-spacing: 6px;	
+}
+.easycoopfin #header {
+	padding: 0 10px;  /* this padding matches the left alignment of the elements in the divs that appear beneath it. If an image is used in the #header instead of text, you may want to remove the padding. */
+	background-color: #FFFFFF;
+	height:60px;
+	background-image: url(../images/payrolllogo.gif);
+	background-repeat: repeat;
+} 
+.easycoopfin #header h1 {
+	width: 63%;
+	height:60px;
+	margin: 0; /* zeroing the margin of the last element in the #header div will avoid margin collapse - an unexplainable space between divs. If the div has a border around it, this is not necessary as that also avoids the margin collapse */
+	padding: 10px 0; /* using padding instead of margin will allow you to keep the element away from the edges of the div */
+	
+	float : left;
+	background-image: url(images/payrolllogo.gif);
+	background-repeat: repeat;
+}
+
+.easycoopfin #mainnavmenu {
+	width: 98%;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 10px; /* the auto margins (in conjunction with a width) center the page */
+	text-align:left; /* this overrides the text-align: center on the body element. */
+	color: #666666;
+	padding:20px; 
+}
+.easycoopfin #mainnavmenu a:link{
+	width: 98%;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 10px; /* the auto margins (in conjunction with a width) center the page */
+	text-align:left; /* this overrides the text-align: center on the body element. */
+	color: #333333;
+	text-decoration:none;	 
+}
+.easycoopfin #mainsearchbar {
+	width: 100%;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 10px; /* the auto margins (in conjunction with a width) center the page */
+	text-align:left; /* this overrides the text-align: center on the body element. */
+	color: #CCCCCC;
+	background-color: #666666;
+	height: 5px;
+	
+}
+
+.easycoopfin #quicklinksbar {
+	width: 100%;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 12px; /* the auto margins (in conjunction with a width) center the page */
+	text-align:left; /* this overrides the text-align: center on the body element. */
+	color: #FF0000;
+	background-color: #e3f0f9;
+	height: 10px;
+	padding: 15px 0px;
+}
+.easycoopfin #quicklinksbar a:link {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 11px; /* the auto margins (in conjunction with a width) center the page */
+	color: #000000;
+	text-decoration:none;
+}
+/* Tips for sidebar1:r
+1. since we are working in percentages, it's best not to use padding on the sidebar. It will be added to the width for standards compliant browsers creating an unknown actual width. 
+2. Space between the side of the div and the elements within it can be created by placing a left and right margin on those elements as seen in the ".easycoopfin #sidebar1 p" rule.
+3. Since Explorer calculates widths after the parent element is rendered, you may occasionally run into unexplained bugs with percentage-based columns. If you need more predictable results, you may choose to change to pixel sized columns.
+*/
+/* Tips for mainContent:
+1. the space between the mainContent and sidebar1 is created with the right margin on the mainContent div.  No matter how much content the sidebar1 div contains, the column space will remain. You can remove this right margin if you want the #mainContent div's text to fill the #sidebar1 space when the content in #sidebar1 ends.
+2. to avoid float drop at a supported minimum 800 x 600 resolution, elements within the mainContent div should be 430px or smaller (this includes images).
+3. in the Internet Explorer Conditional Comment below, the zoom property is used to give the mainContent "hasLayout." This avoids several IE-specific bugs.
+*/
+.easycoopfin #mainContent {
+	margin: 0 0 0 10px; /* the left margin should mirror the margin on the header and footer for proper alignment. */
+	color: #666666;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 11px;
+	font-weight:500;
+} 
+.easycoopfin #mainContent h1 {
+	margin: 0 0 0 10px; /* the left margin should mirror the margin on the header and footer for proper alignment. */
+	color: #000000;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	margin-left:40%
+	 
+} 
+.easycoopfin #mainContent a:link{
+	 /* the left margin should mirror the margin on the header and footer for proper alignment. */
+	color: #666666;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 11px;
+	font-weight: bold;
+		 
+}
+.easycoopfin #mainContent a:visited{
+	 /* the left margin should mirror the margin on the header and footer for proper alignment. */
+	color: #666666;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 11px;
+	font-weight: bold;
+		 
+}
+.easycoopfin #mainContent #imagetext{
+	 /* the left margin should mirror the margin on the header and footer for proper alignment. */
+	
+	color: #000000;
+}
+.easycoopfin #footerline1 {
+	width: 100%;
+	color: #CCCCCC;
+	background-color: #666666;
+	height: 5px;
+	
+}
+.trbgcolor1 {
+	background-color: lightpink;
+}
+.trbgcolor2 {
+	background-color: thistle;
+}
+.error {
+        color: #ff0000;
+        font-weight: bold;
+}
+.easycoopfin #footerline2 {
+	width: 100%;
+	color: #CCCCCC;
+	background-color: #CCCCCC;
+	height: 10px;
+	
+}
+.easycoopfin #footer {
+	padding: 0 10px;
+	background-color: #FFFFFF;
+	text-align: center;
+	color: #333333;
+} 
+.easycoopfin #footer p {
+	margin: 0; /* zeroing the margins of the first element in the footer will avoid the possibility of margin collapse - a space between divs */
+	padding: 10px 0; /* padding on this element will create space, just as the the margin would have, without the margin collapse issue */
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	background-color: #FFFFFF;
+	text-align: center;
+	color: #333333;
+	font-weight: bold;
+}
+
+.easycoopfin #footer #copyrightline {
+	font-size: 10px;
+}
+.easycoopfin #footer #copyrightline a:link {
+	color: #333333;
+}
+
+/* Miscellaneous classes for reuse */
+.fltrt { /* this class can be used to float an element right in your page. The floated element must precede the element it should be next to on the page. */
+	float: right;
+	margin-left: 8px;
+}
+.fltlft { /* this class can be used to float an element left in your page. The floated element must precede the element it should be next to on the page. */
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat { /* this class should be placed on a div or break element and should be the final element before the close of a container that should fully contain a float */
+	clear:both;
+    height:0;
+    font-size: 1px;
+    line-height: 0px;
+}

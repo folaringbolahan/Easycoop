@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <!-- properties -->
+    <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.datasource">java:comp/env/jdbc/easycoopfin</property>
+    <property name="hibernate.cache.use_query_cache">false</property>
+    <property name="show_sql">true</property>
+    <property name="query.substitutions">true 1, false 0, yes 'Y', no 'N'</property>
+    <!-- mapping files -->
+    <mapping resource="com/sift/ormmapping/models/Agmattendees.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/Agms.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/Branch.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/Company.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/Member.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/ProductAccount.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/ProductAccountType.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/ProductType.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/Products.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/Savings.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/Users.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/Voteoptions.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/Voteresults.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/Votes.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/Currency.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/FileUpoad.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/Custaccountdetails.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/VoteAccessQuestions.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/AgmProxies.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/TxnCodes.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/SavingsError.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/ProductAccountVal.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/FileUpoadError.hbm.xml"/>
+    <mapping resource="com/sift/ormmapping/models/Accountnameobj.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.sift.easycoopfin.models.TxnCode" table="txncodes" lazy="false">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="transactionCode" column="TransactionCode" type="string" length="15" not-null="true" lazy="false"/>
+		<property name="description" column="Description" type="string" length="44" not-null="true" lazy="false"/>
+                <property name="narrative" column="Narrative" type="string" length="44" not-null="true" lazy="false"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.sift.easycoopfin.models.Currency" table="currency" lazy="false">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="code" column="currency_code" type="string" length="10" not-null="true" lazy="false"/>
+		<property name="name" column="currency_name" type="string" length="50" not-null="true" lazy="false"/>
+	</class>
+</hibernate-mapping>

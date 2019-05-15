@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.datasource">java:comp/env/jdbc/easycoopfin</property>
+    <property name="show_sql">true</property>
+    <property name="myeclipse.connection.profile">MySql</property>
+    <mapping resource="com/sift/financial/member/CompanyLocal.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/Member.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/MemberType.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/AddressType.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/AddressEntries.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/Branch.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/AddressElements.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/CompStockTypeDetail.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/CompStockProperty.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/CompStockType.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/IdentificationDoc.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/MemberHoldings.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/Countries.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/Status.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/StatusFlow.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/Module.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/ActivityLog.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/Event.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/CompanyType.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/CompanyCategory.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/CompanyOwnershipStructure.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/SiftEntity.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/CompanyBusinessArea.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/CompanyBusinessActivity.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/MemberHoldingsMovement.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/Company.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/Religion.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/MailRecipient.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/RecipientType.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/MailNotification.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/EventProperty.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/CountryAddressFilter.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/Tax.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/TaxGroups.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/Banks.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/CompanyMemberIdentifier.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/DividendSchedule.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/Dividend.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/DividendType.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/DividendNumberIdentifier.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/PatronageNumberIdentifier.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/PatronageRefund.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/PatronageSchedule.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/PatronageRefundType.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/MemberArchive.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/MemberContribution.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/BatchAddressEntries.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/BatchUploadReference.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/BatchMember.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/BatchUploadFile.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/BatchUploadType.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/BatchStock.hbm.xml"/>
+    <!-- Adding from 31012016-->
+    <mapping resource="com/sift/financial/member/BatchContribution.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/MemberContributionArchive.hbm.xml"/>
+    <!-- Adding from 20012018-->
+    <mapping resource="com/sift/financial/member/Memberextraoptionfld.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/Memberextrafld.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/MembersExtrafldEntries.hbm.xml"/>
+    <mapping resource="com/sift/financial/member/BatchExtrafldEntries.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

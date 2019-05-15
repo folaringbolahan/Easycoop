@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
+<!-- 2018-07-24T03:02:11 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="voteresultwithvoters" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="96db4ae9-29e3-4e83-9e46-85ec51f0efb0">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="EasyCoopFinDB"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.3" value="columnHeader"/>
+	<parameter name="companyname" class="java.lang.String"/>
+	<parameter name="agmid" class="java.lang.Integer"/>
+	<parameter name="companyid" class="java.lang.Integer"/>
+	<parameter name="agmdescription" class="java.lang.String"/>
+	<parameter name="datedetails" class="java.lang.String" isForPrompting="false"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT qryvoteressumm.agmid,
+	qryvoteressumm.noofvoters,
+	qryvoteressumm.expectedvotes,
+	qryvoteressumm.questsid,
+	qryvoteressumm.questdesc,
+	qryvoteressumm.optionid,
+	qryvoteressumm.optiondesc,
+	qryvoteressumm.castedvotes,
+	vot_agm.description,
+	vot_agm.startdate,
+	vot_agm.enddate,
+	vot_agm.starttime,
+	vot_agm.endtime,
+	vot_agm.companyid,
+	vot_voteresults.companyid,
+    vot_voteresults.memberid,
+    vot_voteresults.unitsofvote,
+	vot_members.surname,
+    vot_members.firstname,
+    vot_members.middlename,
+    vot_members.email
+FROM vot_agm
+	INNER JOIN easycoopfin.qryvoteressumm ON easycoopfin.qryvoteressumm.agmid = easycoopfin.vot_agm.id 
+	INNER JOIN easycoopfin.vot_voteresults ON easycoopfin.vot_voteresults.companyid=easycoopfin.vot_agm.companyid
+	INNER JOIN easycoopfin.vot_members ON easycoopfin.vot_members.memberid=easycoopfin.vot_voteresults.memberid
+	 WHERE 
+	 qryvoteressumm.agmid = $P{agmid}
+	  and easycoopfin.vot_voteresults.votequestid=easycoopfin.qryvoteressumm.questsid
+     and easycoopfin.vot_voteresults.voteoptionid=easycoopfin.qryvoteressumm.optionid
+     
+	   order by qryvoteressumm.questsid,qryvoteressumm.castedvotes,qryvoteressumm.optionid  desc]]>
+	</queryString>
+	<field name="agmid" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="noofvoters" class="java.lang.Long"/>
+	<field name="expectedvotes" class="java.math.BigDecimal"/>
+	<field name="questsid" class="java.lang.Integer"/>
+	<field name="questdesc" class="java.lang.String"/>
+	<field name="optionid" class="java.lang.Integer"/>
+	<field name="optiondesc" class="java.lang.String"/>
+	<field name="castedvotes" class="java.math.BigDecimal"/>
+	<field name="description" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="startdate" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="enddate" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="starttime" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="endtime" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="companyid" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COLUMN_15" class="java.lang.Integer"/>
+	<field name="memberid" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="unitsofvote" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="surname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="firstname" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="middlename" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<sortField name="agmid" order="Descending"/>
+	<sortField name="questdesc" order="Descending"/>
+	<group name="Group2">
+		<groupExpression><![CDATA[$F{agmid}]]></groupExpression>
+		<groupHeader>
+			<band height="21">
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<staticText>
+					<reportElement x="0" y="0" width="80" height="11" uuid="18f725b8-011a-4d03-a8f1-bd8bfbccc66c"/>
+					<textElement>
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Registered Voters :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="80" y="0" width="86" height="11" uuid="8fbaaa52-bbfb-4bcf-99cf-befd3cb4165f"/>
+					<textElement>
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{noofvoters}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="166" y="0" width="84" height="11" uuid="aa7ea911-6a2a-4c15-8d7a-8a9a32fa45ee"/>
+					<textElement>
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Vote Weight :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="250" y="0" width="92" height="11" uuid="39410329-2033-4e77-a861-2d9f3babe234"/>
+					<textElement>
+						<font fontName="Arial" size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{expectedvotes}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="Group3">
+		<groupExpression><![CDATA[$F{questdesc}]]></groupExpression>
+		<groupHeader>
+			<band height="13">
+				<property name="local_mesure_unitheight" value="pixel"/>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				<textField>
+					<reportElement x="0" y="0" width="320" height="10" uuid="d2ee1abd-2ba4-44e3-89cf-8dd68f71b387">
+						<property name="local_mesure_unitheight" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{questdesc}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="66" height="20" uuid="874194b1-9bf8-438e-9307-83f7f81fc875"/>
+				<text><![CDATA[EasyCoopfin]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="66" y="0" width="459" height="20" uuid="636bb84c-941e-4e3e-a15c-24ad9f5db3a8"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true" isStrikeThrough="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{companyname}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="620" y="0" width="160" height="20" uuid="3fd86a2d-3730-436c-8f6f-d32a77d2cad4"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="66" y="4" width="554" height="30" uuid="d053be8d-7a47-4b5d-b99d-d533f07fde19"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vote Results]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="34" width="280" height="26" uuid="893a001c-371f-4662-9cdb-48157b6dc492"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{datedetails}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="34" width="340" height="26" uuid="f618aed5-c390-4e43-b73c-99329fe426b0"/>
+				<textElement>
+					<font fontName="SansSerif" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{agmdescription}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="9" width="280" height="11" uuid="01e1c53f-9458-4717-8767-4b470ec6d267"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Options]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="9" width="100" height="11" uuid="66dbd1a9-77ab-4e84-8924-32d3477102b1"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Votes Cast]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="780" height="2" uuid="27f1e1d7-7781-441a-9e80-33d243bd2c62"/>
+			</line>
+			<staticText>
+				<reportElement x="380" y="9" width="200" height="11" uuid="2243b156-4643-48d5-b220-0648d5dab9ba">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Voters Fullnames]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="580" y="9" width="100" height="11" uuid="3fa39385-4f0c-4f07-b15d-d41149f01cce">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Voters Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="680" y="9" width="100" height="11" uuid="7425c0af-1230-4f70-b4d3-2dad5e574d9c">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Voters Unit]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="0" y="0" width="280" height="10" uuid="0cb50fcf-89c3-4f4d-8ce7-86a627557585"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{optiondesc}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="280" y="0" width="100" height="10" uuid="3a2eee99-02fd-498e-8265-c8f69bf1f583"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{castedvotes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="50" height="11" uuid="a50232d8-ecd4-423a-83b8-e25541740b58">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{surname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="0" width="50" height="11" uuid="9454100f-43f7-42d6-9d27-b109d0c4e24b">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{firstname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="0" width="100" height="11" uuid="b1d41c02-f85d-4786-bf44-e006f6f5fc3e">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{middlename}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="582" y="0" width="100" height="11" uuid="2e7fd4e4-5318-43f0-be17-92fbdd5c59c5">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="682" y="0" width="98" height="11" uuid="b2b1cfc1-5604-413b-b118-3e1d913654d3">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unitsofvote}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="34" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="620" y="2" width="120" height="20" uuid="c7b7f995-53f1-41af-a202-dffeb6d617a5"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="740" y="2" width="40" height="20" uuid="036359cc-c1d3-4471-be52-0e3547a741ff"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

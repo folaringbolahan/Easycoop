@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
+<!-- 2018-05-24T04:33:27 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="agmattendees" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="27f6bfe8-aed0-498c-956f-8b5830757ca3">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="easycoopfin"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.3" value="columnHeader"/>
+	<parameter name="companyid" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="companyname" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="startdate" class="java.util.Date" isForPrompting="false">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="enddate" class="java.util.Date" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[SELECT easycoopfin.vw_agm_participants.agms_id,
+	easycoopfin.vw_agm_participants.member_name,
+	easycoopfin.vw_agm_participants.proxy_name,
+	easycoopfin.vw_agm_participants.address,
+	easycoopfin.vw_agm_participants.email_address,
+	easycoopfin.vw_agm_participants.phone_number,
+	easycoopfin.vw_agm_participants.gender,
+	easycoopfin.vw_agm_participants.company_id,
+	easycoopfin.vw_agm_participants.company_name,
+	easycoopfin.vw_agm_participants.start_date,
+	easycoopfin.vw_agm_participants.email_add_1,
+	easycoopfin.vw_agm_participants.phone_no_1
+FROM easycoopfin.vw_agm_participants
+WHERE easycoopfin.vw_agm_participants.company_id=$P{companyid}
+AND easycoopfin.vw_agm_participants.start_date >= $P{startdate}
+AND easycoopfin.vw_agm_participants.start_date <= $P{enddate}
+ORDER BY easycoopfin.vw_agm_participants.start_date desc]]>
+	</queryString>
+	<field name="agms_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="member_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="proxy_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="address" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="email_address" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="phone_number" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="company_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="company_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="start_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="email_add_1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="phone_no_1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="varProxyName" class="java.lang.String">
+		<variableExpression><![CDATA[($F{proxy_name}==null ?"None": "Name: "+$F{proxy_name})]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="66" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="620" y="20" width="100" height="30" uuid="1258617f-7e7b-4a57-8beb-372b6405e614"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="36" width="80" height="24" uuid="b0530adf-61bc-480f-8083-27faa96c936f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[EasyCoopFin]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="36" width="100" height="24" uuid="537ffd41-2c0d-4cb6-8fe6-f206e879b45d"/>
+				<textFieldExpression><![CDATA[$P{companyname}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="326" y="10" width="168" height="30" uuid="ffcbbad7-a2ca-4fbc-ab16-475a330d1240"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AGM ATTENDEES]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="87" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="50" width="230" height="30" uuid="0d3c66b5-6472-44e8-9803-b1170b380102"/>
+				<text><![CDATA[Member Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="50" width="100" height="30" uuid="2a633971-c2e2-43a7-96ce-3876419ecf99"/>
+				<text><![CDATA[Email Address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="50" width="100" height="30" uuid="c4e5bd65-572d-4b65-bdf2-b17de263df2a"/>
+				<text><![CDATA[Mobile]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="50" width="100" height="30" uuid="289cdfec-13e4-49a4-8c5c-fb6d709abcec"/>
+				<text><![CDATA[Event Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="600" y="50" width="100" height="30" uuid="187ae6dd-9f27-49d2-95ff-018767a55b8f"/>
+				<text><![CDATA[Proxy details]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="61" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="30" width="230" height="30" uuid="ad195af3-a322-4ba1-a9e9-29955b72c632"/>
+				<textFieldExpression><![CDATA[$F{member_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="30" width="100" height="30" uuid="ef7fdf03-2015-4032-97d2-cc7c31c4edbe"/>
+				<textFieldExpression><![CDATA[$F{email_add_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="357" y="31" width="100" height="30" uuid="5b47d37c-96c8-4b24-9f1e-bfbbf65d2121"/>
+				<textFieldExpression><![CDATA[$F{phone_no_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="30" width="100" height="30" uuid="b206c2f3-da5d-4710-a699-4f19783cd8d6"/>
+				<textFieldExpression><![CDATA[$F{start_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="600" y="31" width="100" height="30" uuid="4d727d25-82af-405f-9785-f25e2448b54b"/>
+				<textFieldExpression><![CDATA[$V{varProxyName}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="10" width="750" height="1" uuid="a8d7b04f-8e09-4e56-ba94-89a3f9798d60"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

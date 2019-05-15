@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.sift.easycoopfin.models.SavingsError" table="Savingserror" lazy="false">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="companyId" column="company_id" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="branchId" column="branch_id" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="accountNumber" column="account_number" type="string" length="100" not-null="true" lazy="false"/>
+		<property name="memberId" column="member_id" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="amount" column="amount" type="double" length="50" not-null="true" lazy="false"/>
+		<property name="description" column="description" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="userId" column="user_id" type="string" length="50" not-null="true" lazy="false"/>
+		<property name="referenceNumber" column="reference_number" type="string" length="100" not-null="true" lazy="false"/>
+		<property name="trxDate" column="trx_date" type="date" not-null="true" lazy="false"/>
+                <property name="productId" column="product_id" type="integer" length="11" not-null="true" lazy="false"/>
+                <property name="checkerId" column="checker_id" type="string" length="50" not-null="false" lazy="false"/>
+                <property name="trxType" column="trx_type" type="string" length="1" not-null="false" lazy="false"/>
+                <property name="errorMessage" column="error_message" type="string" length="100" not-null="true" lazy="false"/>
+                <property name="status" type="byte" length="3" not-null="false" lazy="false">
+			<column name="status" default="0"/>
+		</property> 
+                <property name="isBatch" type="byte" length="3" not-null="false" lazy="false">
+			<column name="is_batch" default="0"/>
+		</property>
+	</class>
+</hibernate-mapping>

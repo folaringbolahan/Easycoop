@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
+<!-- 2018-05-24T04:40:25 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="glchartofaccounts" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2488c375-34e1-4768-94a8-709a80a44dfe">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="easycoopfin"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.3" value="columnHeader"/>
+	<parameter name="companyname" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="companyid" class="java.lang.Integer" isForPrompting="false">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="branchid" class="java.lang.Integer" isForPrompting="false">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     accounts.`AccountNo` AS accounts_AccountNo,
+     accounts.`Name` AS accounts_Name,
+     accounts.`AcGroup` AS accounts_AcGroup,
+     accounts.`Currency` AS accounts_Currency,
+     accounts.`ControlAccount` AS accounts_ControlAccount,
+     accounts.`Active` AS accounts_Active,
+     accounts.`DateOpened` AS accounts_DateOpened,
+     accountgroups.`Description` AS accountgroups_Description
+FROM
+     `accountgroups` accountgroups INNER JOIN `accounts` accounts ON accountgroups.`GroupID` = accounts.`AcGroup` and accountgroups.`Companyid` = accounts.`Companyid`  WHERE SUBACCOUNT = FALSE and accounts.`Companyid` =  $P{companyid}  and accounts.`Branch` =  $P{branchid}  order by accounts.`AcGroup`,accounts.`AccountNo` asc]]>
+	</queryString>
+	<field name="accounts_AccountNo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="accounts_Name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="accounts_AcGroup" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="accounts_Currency" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="accounts_ControlAccount" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="accounts_Active" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="accounts_DateOpened" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="accountgroups_Description" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="70" height="20" uuid="eddf369b-f1cc-43de-8996-f82b245dfb1b"/>
+				<text><![CDATA[EasyCoopFin]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="438" y="0" width="100" height="20" uuid="d2108957-b457-4162-97d9-1c2610014dc6"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="16" width="155" height="17" uuid="ff5e746d-f094-4a9c-839e-a1c2b2ea8c55"/>
+				<textFieldExpression><![CDATA[$P{companyname}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="189" y="0" width="219" height="20" uuid="a2b64b48-1f93-4047-b0df-34aef08384b6"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GL CHART OF ACCOUNTS]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="91" height="11" uuid="2b7c032e-6c23-44bc-9914-b22de82558da"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Account No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="91" y="10" width="91" height="11" uuid="4f32d4ef-753c-417d-bc49-1ee38f28989c"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="254" y="10" width="89" height="11" uuid="1312d4d0-39ab-4985-9376-ae17ddb3d5f6"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="10" width="46" height="10" uuid="2af94cbf-36d3-461b-bd47-5ab846214abd"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Currency]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="10" width="42" height="10" uuid="7d38cc8b-a409-441f-b2b8-d7acfd64314c"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[ControlAc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="431" y="10" width="25" height="11" uuid="54304f87-fa6d-428a-8402-fff388ad3bde"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Active]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="468" y="10" width="49" height="11" uuid="e6f35815-124b-49d6-8a06-51d9371c3260"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[DateOpened]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="21" width="598" height="1" uuid="9814e9a9-d10f-4e5a-ad16-e421150b82d2"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="91" height="14" uuid="490166da-60be-4a51-ac3c-05e9a2a25ec5"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{accounts_AccountNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="91" y="0" width="144" height="14" uuid="546563ea-942c-46ee-b853-c842845feac0"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{accounts_Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="254" y="0" width="89" height="14" uuid="ea6ca41d-4578-405a-b797-9c976c1d1b80"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{accountgroups_Description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="343" y="0" width="46" height="14" uuid="df1338db-7c32-432d-8376-02e6e1f89844"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{accounts_Currency}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="389" y="0" width="28" height="14" uuid="1d8814c3-5625-4394-914a-e2374addd18a"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{accounts_ControlAccount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="431" y="0" width="37" height="14" uuid="8ba7e2e2-c0e1-402d-8148-4d0c45040d4e"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{accounts_Active}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="468" y="0" width="70" height="14" uuid="645e676a-a140-430a-a90e-a6f74528bae1"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{accounts_DateOpened}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="37" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="417" y="2" width="80" height="20" uuid="e9e12658-f492-452f-920a-03a77829f58b"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="498" y="2" width="40" height="20" uuid="445a2f87-dbe0-4a4a-860f-8116194dafd8"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="26" splitType="Stretch"/>
+	</summary>
+</jasperReport>

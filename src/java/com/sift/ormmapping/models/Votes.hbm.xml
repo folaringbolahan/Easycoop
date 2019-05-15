@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.sift.easycoopfin.models.Votes" table="votes" lazy="false">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="companyId" column="company_id" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="description" column="description" type="string" length="255" not-null="true" lazy="false"/>
+		<property name="title" column="title" type="string" length="150" not-null="true" lazy="false"/>
+		<property name="voteDate" column="vote_date" type="date" not-null="true" lazy="false"/>
+                <property name="endDate" column="end_date" type="date" not-null="true" lazy="false"/>
+                <property name="agmId" column="agm_id" type="integer" length="10" not-null="true" lazy="false"/>
+                 <property name="startTime" column="start_time" type="time" length="255" not-null="false" lazy="false"/>
+                 <property name="endTime" column="end_time" type="time" length="255" not-null="false" lazy="false"/>
+	</class>
+</hibernate-mapping>

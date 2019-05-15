@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                    http://www.springframework.org/schema/security
+                    http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <http pattern="/login.jsp*" security="none" />
+    <http pattern="/votes/login.htm*" security="none" />
+    <http pattern="/forgotPass.jsp*" security="none" />
+    <http pattern="/changePass.jsp*" security="none" />
+    <http pattern="/updateAppLogon.htm*" security="none" />
+    <http pattern="/changeMyLogonPass.htm*" security="none" />
+    <http pattern="/changeMyLogonPass2.htm*" security="none" />
+    <http pattern="/accessdenied.htm" security="none" />
+    <http pattern="/resources/**" security="none" />
+    <!--<http pattern="/webserv/**" security="none" />-->
+    <http pattern="/reppara/**" security="none" />
+    <!--<http pattern="/views/vote/**" security="none" />-->
+    <!--<http pattern="/webservice/**" security="none" />-->
+    <http pattern="/webservice/loanrequest/**" create-session="stateless" authentication-manager-ref="restauthenticationManager" entry-point-ref="restServicesEntryPoint" >
+        <!--<http-basic/>-->
+        <intercept-url pattern="/webservice/loanrequest/runningloan/" access="ROLE_WEBSERVADMIN" /> 
+        <intercept-url pattern="/webservice/loanrequest/runningloan" access="ROLE_WEBSERVADMIN" />
+        <intercept-url pattern="/webservice/loanrequest/addloan/" access="ROLE_WEBSERVADMIN" /> 
+        <intercept-url pattern="/webservice/loanrequest/addloan" access="ROLE_WEBSERVADMIN" />
+        <intercept-url pattern="/webservice/loanrequest/loanrequest1/" access="ROLE_WEBSERVADMIN" /> 
+        <intercept-url pattern="/webservice/loanrequest/loanrequest1" access="ROLE_WEBSERVADMIN" />
+        <intercept-url pattern="/webservice/loanrequest/listPendingLoanRequest/" access="ROLE_WEBSERVADMIN" /> 
+        <intercept-url pattern="/webservice/loanrequest/listPendingLoanRequest" access="ROLE_WEBSERVADMIN" />
+        <intercept-url pattern="/webservice/loanrequest/listallloan/" access="ROLE_WEBSERVADMIN" /> 
+        <intercept-url pattern="/webservice/loanrequest/listallloan" access="ROLE_WEBSERVADMIN" />
+        <intercept-url pattern="/webservice/loanrequest/listdata2/" access="ROLE_WEBSERVADMIN" /> 
+        <intercept-url pattern="/webservice/loanrequest/listdata2" access="ROLE_WEBSERVADMIN" />
+        <intercept-url pattern="/webservice/loanrequest/coopadminmail/" access="ROLE_WEBSERVADMIN" />
+        <intercept-url pattern="/webservice/loanrequest/coopadminmail" access="ROLE_WEBSERVADMIN" />
+        <custom-filter ref="restServicesFilter" after="BASIC_AUTH_FILTER"  />
+    </http>
+  
+    <http pattern="/crew/**" security="none" />
+    <!-- Security configuration for REST services. -->
+    <http pattern="/webserv/**" create-session="stateless" authentication-manager-ref="restauthenticationManager" entry-point-ref="restServicesEntryPoint" >
+        <!--<http-basic/>-->
+        <intercept-url pattern="/webserv/glws/gt/" access="ROLE_WEBSERVADMIN" /> 
+        <intercept-url pattern="/webserv/glws/gt" access="ROLE_WEBSERVADMIN" />
+        <intercept-url pattern="/webserv/glws/" access="ROLE_WEBSERVADMIN" /> 
+        <intercept-url pattern="/webserv/glws" access="ROLE_WEBSERVADMIN" />
+        <intercept-url pattern="/webserv/glwsprdacno/" access="ROLE_WEBSERVADMIN" />
+        <intercept-url pattern="/webserv/glwsprdacno" access="ROLE_WEBSERVADMIN" /> 
+        <custom-filter ref="restServicesFilter" after="BASIC_AUTH_FILTER"  />
+    </http>
+ 
+    <!-- Entry point for REST service. -->
+    <beans:bean id="restServicesEntryPoint" class="com.sift.gl.service.RestAuthenticationEntryPoint" />
+    <!-- Filter for REST services. -->
+    <beans:bean id="restServicesFilter" class="org.springframework.security.web.authentication.www.BasicAuthenticationFilter">
+        <beans:property name="authenticationManager" ref="restauthenticationManager" />
+        <beans:property name="authenticationEntryPoint" ref="restServicesEntryPoint" />
+        <!--<beans:property name="authenticationSuccessHandler" ref="restServicesSuccessHandler" />-->
+    </beans:bean>
+    <!-- A handler for successful REST service authentication. -->
+    <beans:bean id="restServicesSuccessHandler" class="com.sift.gl.service.RestAuthenticationSuccessHandler" />
+
+    <!--    End Security for Rest services   
+
+   -->
+   <beans:bean id="voterFilter" class="com.sift.votes.service.VoterCustomAuthenticationFilter">
+       <beans:property name="filterProcessesUrl" value="/votes/j_spring_security_check"/>
+       <beans:property name="authenticationManager" ref="votersdefaultauthenticationManager" />
+       <!--<beans:property name="usernameParameter" value="username "/>
+       <beans:property name="passwordParameter" value="password"/>-->
+       <beans:property name="authenticationSuccessHandler">
+           <beans:bean class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+              <beans:property name="alwaysUseDefaultTargetUrl" value="true"/>
+               <beans:property name="defaultTargetUrl" value="/votes/questions.htm"/>
+           </beans:bean>
+       </beans:property>
+       <beans:property name="authenticationFailureHandler">
+            <beans:bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+                <beans:property name="defaultFailureUrl" value="/votes/login.htm?login_error=true"/>
+            </beans:bean>
+       </beans:property>
+   </beans:bean>
+   
+   
+   <beans:bean id="votersauthenticationProcessingFilterEntryPoint"  class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+      <beans:property name="loginFormUrl" value="/votes/login.htm" />
+      <beans:property name="forceHttps" value="false" />
+   </beans:bean>
+   
+   <http  pattern="/votes/**" auto-config="false" use-expressions="false" access-denied-page="/accessdenied.htm" authentication-manager-ref="votersdefaultauthenticationManager"  entry-point-ref="votersauthenticationProcessingFilterEntryPoint" >
+        <custom-filter  position="FORM_LOGIN_FILTER" ref="voterFilter" />
+        <logout logout-url="/static/j_spring_security_logout" logout-success-url="/votes/login.htm"/>
+        <intercept-url pattern="/votes/questions**" access="ROLE_VT1" />
+      <!--  <form-login  login-page="/votes/login.htm" login-processing-url="/votes/j_spring_security_check" default-target-url="/votes/questions.htm" always-use-default-target="true" authentication-failure-url="/votes/login.htm?login_error=true"  /> -->
+        <session-management invalid-session-url="/logout.html">
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+         </session-management>  
+         
+    </http>
+   
+   
+ <!--   <http  pattern="/votes/**" auto-config="true" use-expressions="false" access-denied-page="/accessdenied.htm" authentication-manager-ref="votersdefaultauthenticationManager"  >
+        <custom-filter  position="FORM_LOGIN_FILTER" ref="voterFilter" />
+        <logout logout-url="/static/j_spring_security_logout" logout-success-url="/votes/login.htm"/>
+        <intercept-url pattern="/votes/questions**" access="ROLE_VT1" />
+        <form-login  login-page="/votes/login.htm" login-processing-url="/votes/j_spring_security_check" default-target-url="/votes/questions.htm" always-use-default-target="true" authentication-failure-url="/votes/login.htm?login_error=true"  />
+        <session-management invalid-session-url="/logout.html">
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+         </session-management>  
+         
+    </http>
+   -->
+   
+   
+  
+    <http auto-config="true" use-expressions="false" access-denied-page="/accessdenied.htm" authentication-manager-ref="defaultauthenticationManager">
+        <logout logout-url="/static/j_spring_security_logout"/>
+        <!-- <intercept-url pattern="/faces/javax.*/**" access="ROLE_USER,ROLE_MANAGER,ROLE_ADMIN" />  -->
+        <intercept-url pattern="/faces/ss_**" access="ROLE_USER,ROLE_MANAGER,ROLE_ADMIN" /> 
+        <intercept-url pattern="/faces/appe_**" access="ROLE_USER,ROLE_MANAGER,ROLE_ADMIN" />
+        <intercept-url pattern="/faces/appr_**" access="ROLE_USER,ROLE_MANAGER,ROLE_ADMIN" />
+        <intercept-url pattern="/faces/mg_**" access="ROLE_MANAGER,ROLE_ADMIN" /> 
+        <intercept-url pattern="/faces/DisplayImage**" access="ROLE_USER,ROLE_MANAGER,ROLE_ADMIN" />
+        <intercept-url pattern="/gl/gl_accountgrouplist.htm**" access="ROLE_GL1" />
+        <intercept-url pattern="/gl/gl_accountseg.htm**" access="ROLE_GL2" />
+        <intercept-url pattern="/gl/gl_upaccountseg.htm**" access="ROLE_GL2" />
+        <intercept-url pattern="/gl/gl_accountstructlist.htm**" access="ROLE_GL3" />
+        <intercept-url pattern="/gl/gl_account.htm**" access="ROLE_GL4" />
+        <intercept-url pattern="/gl/gl_accounttxnview.htm**" access="ROLE_GL5" />
+        <intercept-url pattern="/gl/gl_journalzk.htm" access="ROLE_GL6" />    
+        <intercept-url pattern="/gl/gl_startofday.htm" access="ROLE_GL7" />
+        <intercept-url pattern="/gl/gl_periodend.htm" access="ROLE_GL8" />
+        <intercept-url pattern="/gl/gl_settingslist.htm" access="ROLE_GL9" />
+        <intercept-url pattern="/gl/gl_holidayslist.htm" access="ROLE_GL10" />
+        <intercept-url pattern="/gl/gl_accountsupload.htm" access="ROLE_GL11" />
+        <intercept-url pattern="/gl/gl_uploadmem.htm" access="ROLE_GL12" />  
+        <intercept-url pattern="/gl/gl_pendingacctlist.htm**" access="ROLE_GL13" />      
+        <intercept-url pattern="/gl/gl_downloadTemplate.htm" access="ROLE_GL14" />
+        <intercept-url pattern="/gl/gl_accountstxnupload.htm" access="ROLE_GL15" />
+        <intercept-url pattern="/gl/gl_accttxnupldapprv.htm" access="ROLE_GL16" />
+        <intercept-url pattern="/gl/gl_cfpfccttxn4apprv.htm" access="ROLE_GL16" />
+        <!-- <intercept-url pattern="/newCountry.htm**" access="ROLE_AD1" />
+        <intercept-url pattern="/newCurrency.htm**" access="ROLE_AD2" /> -->
+        <intercept-url pattern="/newTax.htm**" access="ROLE_AD3" />
+        <intercept-url pattern="/newUserGroup.htm**" access="ROLE_AD4" />
+        <intercept-url pattern="/newLoan.htm**" access="ROLE_AD5" />
+        <intercept-url pattern="/pendingLoanRequests.htm**" access="ROLE_LN2" />
+        <intercept-url pattern="/newUser.htm**" access="ROLE_AD6" />
+        <intercept-url pattern="/newUserCA.htm**" access="ROLE_AS8" />
+        <intercept-url pattern="/newUserBA.htm**" access="ROLE_AC2" />
+        <intercept-url pattern="/newTaxGroup.htm**" access="ROLE_AD16" />
+        <intercept-url pattern="/assignMenu.htm**" access="ROLE_AD17" /> 
+        <intercept-url pattern="/assignMenuCA.htm**" access="ROLE_AS10" />  
+        <intercept-url pattern="/assignMenuBA.htm**" access="ROLE_AC3" />  
+        <intercept-url pattern="/addTaxItemsToGroup.htm**" access="ROLE_AD18" />    
+        <!-- <intercept-url pattern="/newAddrType.htm**" access="ROLE_AD8" />
+        <intercept-url pattern="/newAddrItem.htm**" access="ROLE_AD9" /> -->
+        <intercept-url pattern="/viewAppConfig.htm**" access="ROLE_AD10" />
+        <intercept-url pattern="/accountsunlock.htm.htm" access="ROLE_AD11" />
+        <intercept-url pattern="/newFiscalP.htm**" access="ROLE_AD12" />
+        <!-- <intercept-url pattern="/newCompany.htm**" access="ROLE_AD13" />
+        <intercept-url pattern="/newBranch.htm" access="ROLE_AD14" /> -->
+        <intercept-url pattern="/disburseLoanRequest0.htm**" access="ROLE_LN3" />    
+        <intercept-url pattern="/loanRepayment0.htm**" access="ROLE_LN4" />   
+        <intercept-url pattern="/listBulkUploads.htm**" access="ROLE_LN5" /> 
+        <intercept-url pattern="/newBulkRepaymentUpload.htm**" access="ROLE_LN6" />
+        <!--<intercept-url pattern="/newBalloonPayment.htm**" access="ROLE_LN9" />-->
+        <intercept-url pattern="/newBulkLoanRePayment-0.htm**" access="ROLE_LN7" />
+        <intercept-url pattern="/newLoanPayOff.htm**" access="ROLE_LN8" />
+        <intercept-url pattern="/newLoanPayOffUpload.htm**" access="ROLE_LN10" />
+        <intercept-url pattern="/listBulkUploadsForVerify.htm**" access="ROLE_LN11" /> 
+        <intercept-url pattern="/listBulkUploadsForAuth.htm**" access="ROLE_LN12" /> 
+        <intercept-url pattern="/index.htm" access="ROLE_GEN" />
+        <intercept-url pattern="/resetLogon.htm" access="ROLE_GEN" />
+        <intercept-url pattern="/changeMyLogonPass.htm" access="ROLE_GEN" />
+        <intercept-url pattern="**/error.htm" access="ROLE_GEN" />
+        <!-- <intercept-url pattern="/accessdenied.htm" access="permitAll" />-->
+        <intercept-url pattern="/header.jsp" access="ROLE_GEN" />
+        <intercept-url pattern="/images/**" access="ROLE_GEN" />
+        <intercept-url pattern="/views/product/add" access="ROLE_GL1" />
+        <intercept-url pattern="/views/product/list" access="ROLE_GL1" />
+        <intercept-url pattern="/views/savings/add" access="ROLE_GL1" />
+        <intercept-url pattern="/views/savings/list" access="ROLE_GL1" />
+        <intercept-url pattern="/views/savings/upload" access="ROLE_GL1" />
+        <intercept-url pattern="/views/savings/createaccount" access="ROLE_GL1" />
+        <intercept-url pattern="/views/agm/add" access="ROLE_GL1" />
+        <intercept-url pattern="/reports/glchartofaccounts/**" access="ROLE_GEN"/>    
+        <intercept-url pattern="/newCountry.htm**" access="ROLE_AS1" />
+        <intercept-url pattern="/newCurrency.htm**" access="ROLE_AS2" />
+        <intercept-url pattern="/newCompany.htm**" access="ROLE_AS3" />
+        <intercept-url pattern="/newAddrType.htm**" access="ROLE_AS4" />
+        <intercept-url pattern="/newAddrItem.htm**" access="ROLE_AS5" />
+        <intercept-url pattern="/newCountryAddrFilter.htm**" access="ROLE_AS6" />
+        <intercept-url pattern="/activateBranch_1.htm**" access="ROLE_AS10" />
+        <intercept-url pattern="/newBranch.htm**" access="ROLE_AC1" />
+        <intercept-url pattern="/accountsunlocksup.htm**" access="ROLE_AS11" />
+        <intercept-url pattern="/accountsunlockcoy.htm**" access="ROLE_AC7" />
+        <intercept-url pattern="/addBank.htm**" access="ROLE_AS12" />  
+        <intercept-url pattern="/addIdenDoc.htm**" access="ROLE_AS13" /> 
+        <!--<intercept-url pattern="**/resources/**" access="ROLE_AL1" />-->
+        <intercept-url pattern="/reports/glchartofaccounts/**" access="ROLE_GLRP1" />
+        <intercept-url pattern="/reports/postingslog/**" access="ROLE_GLRP6" />
+        <intercept-url pattern="/reports/trialbalance/**" access="ROLE_GLRP2" />
+        <intercept-url pattern="/reports/accountbalances/**" access="ROLE_GLRP5" />
+        <intercept-url pattern="/reports/accounttxns/**" access="ROLE_GLRP8" />
+        <!--
+        <intercept-url pattern="/reports/MemberList/**" access="ROLE_DWRP16" />
+        <intercept-url pattern="/reports/InactiveMemberList/**" access="ROLE_MERP17" />
+        -->
+        <intercept-url pattern="/crew/new.htm" access="ROLE_ME1" />
+        <intercept-url pattern="/crew/listMember.htm" access="ROLE_ME2" />
+        <intercept-url pattern="/crew/pendinMember.htm" access="ROLE_ME3" />
+        <intercept-url pattern="/crew/apprdMember.htm" access="ROLE_ME4" />
+        <intercept-url pattern="/discp/suspended.htm" access="ROLE_ME5" />
+        <intercept-url pattern="/discp/exitted.htm" access="ROLE_ME6" />
+        <intercept-url pattern="/discp/pendingSuspension.htm" access="ROLE_ME7" />
+        <intercept-url pattern="/discp/pendinExit.htm" access="ROLE_ME8" />
+        <intercept-url pattern="/enquiry/enquiryList.htm" access="ROLE_ME9" />
+        <intercept-url pattern="/enquiry/enquiryBranchList.htm" access="ROLE_ME10" />
+        <intercept-url pattern="/membatch/singleUpload.htm" access="ROLE_ME11" />
+        <intercept-url pattern="/membatch/multipleUpload.htm" access="ROLE_ME12" />
+        <intercept-url pattern="/membatch/pendingBatchValidation.htm" access="ROLE_ME13" />
+        <intercept-url pattern="/membatch/pendingBatchApproval.htm" access="ROLE_ME14" />
+        <intercept-url pattern="/membatch/showTemplates.htm" access="ROLE_ME15" />
+    
+        <intercept-url pattern="/stock/new.htm" access="ROLE_ST1" />
+        <intercept-url pattern="/stock/listStock.htm" access="ROLE_ST2" />
+        <intercept-url pattern="/stock/pendingStocks.htm" access="ROLE_ST3" />
+        <intercept-url pattern="/stock/approvedStocks.htm" access="ROLE_ST4" />
+     
+     
+        <intercept-url pattern="/authPermits.htm**" access="ROLE_AD19" />
+        <intercept-url pattern="/authPermitsCA.htm**" access="ROLE_AS11" />
+        <intercept-url pattern="/authPermitsBA.htm**" access="ROLE_AC4" />
+        <!-- <intercept-url pattern="/coyAdminActivateBUser1.htm**" access="ROLE_AC6" /> -->
+        <intercept-url pattern="/coyActivateBU-1.htm**" access="ROLE_AC6" />
+        <intercept-url pattern="/deactivateuser0.htm**" access="ROLE_AD13" />
+    
+        <intercept-url pattern="/hp/hp_request.htm**" access="ROLE_HP1" />
+        <intercept-url pattern="/hp/hp_reqpapprv.htm**" access="ROLE_HP2" />
+        <intercept-url pattern="/hp/hp_apprvrequest.htm**" access="ROLE_HP2" />
+        <intercept-url pattern="/hp/hp_sales.htm**" access="ROLE_HP3" />
+        <intercept-url pattern="/hp/hp_postsales.htm**" access="ROLE_HP3" />
+        <intercept-url pattern="/hp/hp_paysing.htm**" access="ROLE_HP4" />
+        <intercept-url pattern="/hp/hp_paysingdet.htm**" access="ROLE_HP4" />
+        <intercept-url pattern="/hp/hp_paysidet.htm**" access="ROLE_HP4" />
+        <intercept-url pattern="/hp/hp_pfpaysing.htm**" access="ROLE_HP4" />
+        <intercept-url pattern="/hp/hp_repaymttxnupload.htm**" access="ROLE_HP5" />
+        <intercept-url pattern="/hp/hp_batchpayview.htm**" access="ROLE_HP5" />
+        <intercept-url pattern="/hp/hp_batchpayapprv.htm**" access="ROLE_HP6" />
+        <intercept-url pattern="/hp/hp_hpactive.htm**" access="ROLE_HP7" />
+        <intercept-url pattern="/hp/hp_settings.htm**" access="ROLE_HP8" />
+        <intercept-url pattern="/hp/hp_scdltempdwn.htm**" access="ROLE_HP9" />        
+        <intercept-url pattern="/gl/gl_accttxnupldview.htm" access="ROLE_GL15" />  
+         
+        <intercept-url pattern="/dividend/new.htm" access="ROLE_DR1" />
+        <intercept-url pattern="/dividend/listNew.htm" access="ROLE_DR2" />
+        <intercept-url pattern="/dividend/listCancelled.htm" access="ROLE_DR3" />
+        <intercept-url pattern="/dividend/listEdited.htm" access="ROLE_DR4" />
+        <intercept-url pattern="/dividend/listApproved.htm" access="ROLE_DR5" />
+        <intercept-url pattern="/dividend/listRejected.htm" access="ROLE_DR6" />
+        <intercept-url pattern="/dividend/listPaid.htm" access="ROLE_DR7" />
+        
+        <intercept-url pattern="/userpassreset.htm**" access="ROLE_AS14" />
+        <intercept-url pattern="/**" access="ROLE_GEN" />
+        <form-login login-processing-url="/j_spring_security_check" login-page="/login.jsp" default-target-url="/index.htm" always-use-default-target="true" authentication-failure-url="/login.jsp?login_error=true"/>
+  
+        <!-- For concurren user --> 
+        
+        <session-management invalid-session-url="/logout.html">
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+         </session-management>  
+         
+    </http>
+ 
+ 
+   
+ 
+ 
+ 
+    <user-service id="userServicemem">
+        <user name="habuma" password="letmein" authorities="ROLE_SPITTER,ROLE_ADMIN"/>
+        <user name="twoqubed" password="longhorns" authorities="ROLE_SPITTER"/>
+        <user name="admin" password="admin" authorities="ROLE_ADMIN"/>
+    </user-service>
+ 
+    <authentication-manager id="defaultauthenticationManager">
+        <authentication-provider  ref="logatauthenticationProvider"  >
+            <!-- <password-encoder ref="encoder"/> -->
+        </authentication-provider>    
+    </authentication-manager>
+    
+    <authentication-manager id="votersdefaultauthenticationManager">
+        <authentication-provider  ref="votlogatauthenticationProvider"  >
+            <!-- <password-encoder ref="encoder"/> -->
+        </authentication-provider>    
+    </authentication-manager>
+
+
+    <beans:bean id="logatauthenticationProvider"  class="com.sift.gl.service.LimitLoginAuthenticationProvider"   >
+        <!-- <beans:property name=""  ></beans:property>--> 
+        <beans:property  name="userDetailsService" ref="userDetailsService" > </beans:property> 
+        <beans:property name="userAttemptsDao" ref="userAttemptsDao" /> 
+        <beans:property name="passwordEncoder" ref="encoder"/>
+    </beans:bean>
+    <beans:bean id="userAttemptsDao" class="com.sift.gl.dao.Userattemptdetailsdao" >
+    </beans:bean>
+    <beans:bean id="userDetailsService" class="com.sift.gl.CustomUserDetailsService" >
+        <beans:property name="usersByUsernameQuery" value="select email, password, enabled,accountNonExpired,credentialsNonExpired,accountNonLocked from users where email=?"/>
+        <beans:property name="authoritiesByUsernameQuery" value="select a.email,c.menurole from users a inner join usergrpmdl b on a.accesslevel = b.usergroup and a.branch = b.branchid and
+        a.companyid = b.companyid inner join modulemenu c on b.menu = c.menucode  where a.email=?" />
+        <beans:property  name="dataSource" ref="dataSource" > </beans:property> 
+        
+    </beans:bean>
+    <beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/> 
+  
+    <authentication-manager  id="restauthenticationManager">
+        <authentication-provider ref="restauthenticationProvider" />
+    </authentication-manager>
+    <beans:bean id="restauthenticationProvider" class="com.sift.gl.service.UserAuthenticationProvider">
+    </beans:bean>
+
+     <beans:bean id="votlogatauthenticationProvider"  class="com.sift.votes.service.VoterLimitLoginAuthenticationProvider"   >
+        <!-- <beans:property name=""  ></beans:property>--> 
+        <beans:property  name="userDetailsService" ref="votuserDetailsService" > </beans:property> 
+        <beans:property name="vuserAttemptsDao" ref="vuserAttemptsDao" /> 
+        <beans:property name="passwordEncoder" ref="encoder"  />
+        <beans:property name="memberid" value="999"/>
+        
+    </beans:bean>
+    
+    <beans:bean id="vuserAttemptsDao" class="com.sift.votes.dao.VoterUserattemptdetailsdao" >
+    </beans:bean>
+    <beans:bean id="votuserDetailsService" class="com.sift.votes.service.VoterCustomUserDetailsService" >
+        <beans:property name="usersByUsernameQuery" value="select membermail as email, tokencrpy as password, enabled,accountNonExpired,credentialsNonExpired,accountNonLocked,memberid,agmid from vot_creds where membermail=? and agmid = ? and locked = '0'"/>
+       <!-- <beans:property name="usersByUsernameQuery" value="select membermail as email, tokencrpy as password, enabled,accountNonExpired,credentialsNonExpired,accountNonLocked,memberid from vot_creds where membermail=? and locked = '0'"/>-->
+        <beans:property name="authoritiesByUsernameQuery" value="select a.membermail as email,a.role as role from vot_creds a where a.membermail=? and a.locked = '0'" />
+        <beans:property  name="dataSource" ref="dataSource" > </beans:property> 
+        <beans:property  name="refid" value="0" > </beans:property> 
+    </beans:bean>
+     
+     
+     
+</beans:beans>

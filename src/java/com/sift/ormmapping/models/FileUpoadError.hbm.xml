@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.sift.easycoopfin.models.FileUploadError" table="FileUploadError" lazy="false">
+        <id name="id" column="id" type="integer" unsaved-value="0">
+            <generator class="increment">
+            </generator>
+        </id>
+        <property name="companyId" column="company_id" type="integer" length="11" not-null="true" lazy="false"/>
+        <property name="branchId" column="branch_id" type="integer" length="11" not-null="true" lazy="false"/>
+        <property name="productId" column="product_id" type="integer" length="11" not-null="true" lazy="false"/>
+        <property name="fileName" column="file_name" type="string" length="100" not-null="true" lazy="false"/>
+        <property name="location" column="location" type="string" length="150" not-null="true" lazy="false"/>
+        <property name="referenceNumber" column="reference_number" type="string" length="255" not-null="true" lazy="false"/>
+        <property name="userId" column="user_id" type="string" length="50" not-null="false" lazy="false"/> 
+        <property name="description" column="description" type="string" length="150" not-null="false" lazy="false"/>       
+        <property name="processedDate" column="processed_date" type="timestamp" length="50" not-null="false" lazy="false"/> 	
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.sift.easycoopfin.models.ProductType" table="ProductType" lazy="false">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="name" column="name" type="string" length="50" not-null="true" lazy="false"/>
+                <property name="code" column="code" type="string" length="4" not-null="true" lazy="false"/>
+		<property name="attractsInterest" type="byte" length="3" not-null="true" lazy="false">
+			<column name="attracts_interest" default="0"/>
+		</property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,109 @@
+{
+  "data": [
+    {
+      "name": "Abimbola Odeyemi",
+      "position": "Accountant",
+      "salary": "N320,800",
+      "start_date": "2011/04/25",
+      "office": "Accountant",
+      "extn": "5421"
+    },
+    {
+      "name": "Damola Gbadebo",
+      "position": "Accountant",
+      "salary": "N170,750",
+      "start_date": "2011/07/25",
+      "office": "Ogun",
+      "extn": "8422"
+    },
+    {
+      "name": "Zainab Enifeni",
+      "position": "Junior Technical Author",
+      "salary": "N86,000",
+      "start_date": "2009/01/12",
+      "office": "lagos",
+      "extn": "1562"
+    },
+    {
+      "name": "Dimeki Bankole",
+      "position": "Senior Javascript Developer",
+      "salary": "N433,060",
+      "start_date": "2012/03/29",
+      "office": "Ogun",
+      "extn": "6224"
+    },
+    {
+      "name": "Fadare Musiliu",
+      "position": "Accountant",
+      "salary": "N162,700",
+      "start_date": "2008/11/28",
+      "office": "Abeokuta",
+      "extn": "5407"
+    },
+    {
+      "name": "Gbenga Williams",
+      "position": "Integration Specialist",
+      "salary": "N372,000",
+      "start_date": "2012/12/02",
+      "office": "Lagos",
+      "extn": "4804"
+    },
+    {
+      "name": "Hafeez Bola",
+      "position": "Sales Assistant",
+      "salary": "N137,500",
+      "start_date": "2012/08/06",
+      "office": "Lagos",
+      "extn": "9608"
+    },
+    {
+      "name": "Ibrahim Balogun",
+      "position": "Integration Specialist",
+      "salary": "N327,900",
+      "start_date": "2010/10/14",
+      "office": "Lagos",
+      "extn": "6200"
+    },
+    {
+      "name": "Iyabo coker",
+      "position": "Javascript Developer",
+      "salary": "N205,500",
+      "start_date": "2009/09/15",
+      "office": "Lagos",
+      "extn": "2360"
+    },
+    {
+      "name": "John Akinduro",
+      "position": "Software Engineer",
+      "salary": "N103,600",
+      "start_date": "2008/12/13",
+      "office": "Oyo",
+      "extn": "1667"
+    },
+    
+    {
+      "name": "Kayode Petersr",
+      "position": "Regional Director",
+      "salary": "N183,000",
+      "start_date": "2008/11/13",
+      "office": "Ekiti",
+      "extn": "6373"
+    },
+    {
+      "name": "Lagabja Tamedo",
+      "position": "Javascript Developer",
+      "salary": "N183,000",
+      "start_date": "2011/06/27",
+      "office": "Ondo",
+      "extn": "5384"
+    },
+    {
+      "name": "Nike Brown",
+      "position": "Customer Support",
+      "salary": "N112,000",
+      "start_date": "2011/01/25",
+      "office": "Auchi",
+      "extn": "4226"
+    }
+  ]
+}

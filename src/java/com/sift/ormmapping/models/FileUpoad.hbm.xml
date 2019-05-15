@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.sift.easycoopfin.models.FileUpload" table="FileUpload" lazy="false">
+        <id name="id" column="id" type="integer" unsaved-value="0">
+            <generator class="increment">
+            </generator>
+        </id>
+        <property name="companyId" column="company_id" type="integer" length="11" not-null="true" lazy="false"/>
+        <property name="branchId" column="branch_id" type="integer" length="11" not-null="true" lazy="false"/>
+        <property name="productId" column="product_id" type="integer" length="11" not-null="true" lazy="false"/>
+        <property name="status" type="byte" length="3" not-null="true" lazy="false">
+            <column name="status" default="0"/>
+        </property>
+        <property name="isVerified" type="byte" length="3" not-null="true" lazy="false">
+            <column name="is_verified" default="0"/>
+        </property>
+        <property name="failedCount" type="integer" length="11" not-null="false" lazy="false">
+            <column name="failed_count" default="0"/>
+        </property>
+        <property name="successCount" type="integer" length="11" not-null="false" lazy="false">
+            <column name="success_count" default="0"/>
+        </property>  
+        <property name="totalRecords" type="integer" length="11" not-null="false" lazy="false">
+            <column name="total_records" default="0"/>
+        </property>   
+        <property name="fileSum" type="big_decimal" length="50" not-null="false" lazy="false">
+            <column name="file_sum" default="0"/>
+        </property>    
+        <property name="processedSum" type="big_decimal" length="50" not-null="false" lazy="false">
+            <column name="processed_sum" default="0"/>
+        </property>    
+        <property name="state" type="string" length="1" not-null="false" lazy="false">
+            <column name="state" default="F"/>
+        </property>
+        <property name="attemptCount" type="integer" length="11" not-null="false" lazy="false">
+            <column name="attempt_count" default="0"/>
+        </property>
+        
+        <property name="fileName" column="file_name" type="string" length="255" not-null="true" lazy="false"/>
+        <property name="location" column="location" type="string" length="255" not-null="true" lazy="false"/>
+        <property name="referenceNumber" column="reference_number" type="string" length="255" not-null="true" lazy="false"/>
+        <property name="userId" column="user_id" type="string" length="50" not-null="false" lazy="false"/> 
+        <property name="verifierId" column="verifier_id" type="string" length="50" not-null="false" lazy="false"/>       
+        <property name="processedDate" column="processed_date" type="timestamp" length="50" not-null="false" lazy="false"/> 
+        
+        <property name="isApproved" type="byte" length="3" not-null="false" lazy="false">
+            <column name="is_approved" default="0"/>
+        </property>	
+        <property name="approvedBy" column="approved_by" type="string" length="50" not-null="false" lazy="false"/>       
+
+    </class>
+</hibernate-mapping>

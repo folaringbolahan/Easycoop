@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd 
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+    <context:component-scan base-package="com.sift"/>
+    <mvc:annotation-driven/>
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+
+    <!--
+    Most controllers will use the ControllerClassNameHandlerMapping above, but
+    for the index controller we are using ParameterizableViewController, so we must
+    define an explicit mapping for it.
+    -->
+   <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <!--<prop key="index.htm">indexController</prop>-->
+                <prop key="index_1.htm">index1Controller</prop>
+                <prop key="error.htm">errorController</prop>
+                <prop key="accessdenied.htm">accessdeniedController</prop>
+                <prop key="gl/gl_journalzk.htm">zkController</prop>
+              <!--  <prop key="gl_accountgroups.htm">AccountgroupsController</prop>
+                <prop key="zk/newzulTemplate24.zul">newzulTemplateController</prop>
+                <prop key="zk/newzulTemplate2.zul">newzulTemplate2Controller</prop> -->
+                </props>
+         </property>
+    </bean>
+
+   <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:viewClass="org.springframework.web.servlet.view.JstlView"
+          p:prefix="/WEB-INF/views/"
+          p:suffix=".jsp" >
+       
+         <property name="exposedContextBeanNames">
+             <list>
+                 <value>currrentuserServicex</value>
+             </list>
+         </property>
+   </bean>
+
+ 
+
+     <!-- 
+    The index controller.
+    -->
+  <!--   <bean id="accountgroupServicex"
+          class="com.sift.gl.dao.AccountgroupImpl" />
+     <bean id="accountsegServicex"
+          class="com.sift.gl.dao.AccountsegImpl" />
+     <bean id="accountstrServicex"
+          class="com.sift.gl.dao.AccountstructImpl" />--> 
+     <bean id="currrentuserServicex"
+          class="com.sift.gl.dao.CurrentuserdisplayImpl" >
+         <aop:scoped-proxy/>
+     </bean> 
+   <!--  <bean id="accountgroupsController" class="com.sift.gl.controller.AccountgroupsController">
+       <property name="accountgroupService" ref="accountgroupServicex" /> 
+     </bean>
+     <bean id="accountsegmentController" class="com.sift.gl.controller.AccountsegmentController">
+       <property name="accountsegService" ref="accountsegServicex" /> 
+     </bean>
+     <bean id="accountstructController" class="com.sift.gl.controller.AccountstructController">
+       <property name="accountstructService" ref="accountstrServicex" /> 
+     </bean>
+    <bean id="user" class="com.sift.gl.model.Users"  scope="session">
+       <property name="companyid"  value="0004" /> 
+       <property name="branch"  value="03" />
+       <property name="userId"  value="TUNDE" />  
+       <property name="userName"  value="Kinsley Babatunde" />
+       <property name="accessLevel"  value="Audit" />
+       <aop:scoped-proxy/>
+    </bean>  -->
+    <bean id="indexController" class="com.sift.gl.controller.IndexController">
+      <property name="currentuserdisplayService" ref="currrentuserServicex" />
+   </bean> 
+    <!--<bean name="indexController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="index" />-->
+      <bean name="index1Controller"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="index_1" />
+      <bean name="errorController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="error" />
+       <bean name="accessdeniedController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="accessdenied" />
+      <bean name="zkController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="gl/gl_journalzk" />
+     <!--  
+        <bean name="AccountgroupsController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="gl_accountgroups" />  
+           <bean name="newzulTemplateController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="newzulTemplate" />
+     <bean name="newzulTemplate2Controller"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="newzulTemplate2" /> -->
+</beans>

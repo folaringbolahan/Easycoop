@@ -1,0 +1,1321 @@
+<?xml version= "1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.1.xsd       
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+          <context:annotation-config/>
+    <mvc:annotation-driven/>
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+    
+    <!--
+    <context:component-scan base-package="com.sift.financial.member.controller" />
+ 
+   -->
+    <!--
+    Most controllers will use the ControllerClassNameHandlerMapping above, but
+    for the index controller we are using ParameterizableViewController, so we must
+    define an explicit mapping for it.
+    -->
+
+     
+     <!--
+       <context:component-scan base-package="com.sift.loan.controller"/>
+       <context:component-scan base-package="com.sift.loan.utility"/>
+     -->                  
+
+       <context:component-scan base-package="com.sift" use-default-filters="false">
+	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+       </context:component-scan>
+       
+        <bean id="messageSource"
+       	     class="org.springframework.context.support.ReloadableResourceBundleMessageSource">       
+       	     <property name="basename" value="/WEB-INF/messages" />  
+              
+       </bean>
+       
+        <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="index.htm">indexController</prop>
+                <prop key="index_1.htm">index1Controller</prop>
+                <prop key="error.htm">errorController</prop>
+                <prop key="accessdenied.htm">accessdeniedController</prop>
+                <prop key="glappfeedback.htm">glappfeedbackController</prop>
+                <prop key="gl/gl_journalzk.htm">zkController</prop>
+                <prop key="crew/member.htm">crewController</prop>
+                <prop key="crew/approveMember.htm">crewController</prop>
+                <prop key="crew/saveMember.htm">crewController</prop>
+                <prop key="crew/listMember.htm">crewController</prop>
+                <prop key="crew/pendingMember.htm">crewController</prop>
+                <prop key="crew/apprdMember.htm">crewController</prop>
+                <prop key="crew/getAppPage.htm">crewController</prop>
+                <prop key="crew/new.htm">crewController</prop>
+                <prop key="crew/update.htm">crewController</prop>
+                <prop key="crew/updMember.htm">crewController</prop>
+             </props>
+         </property>
+    </bean>
+       
+       
+        <!-- freemarker config -->
+       
+        <bean class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean" id="freemarkerConfiguration">
+       <!-- Turn this off to always load via SpringTemplateLoader -->
+          <property name="preferFileSystemAccess" value="false"></property>
+          <property name="templateLoaderPath" value="/WEB-INF/ftl/"></property>
+       </bean>
+       <!-- freemarker config ends--> 
+
+       
+       <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/views/"
+             p:suffix=".jsp">
+        <property name="exposedContextBeanNames">
+             <list>
+                 <value>currrentuserServicex</value>
+                 <value>currrentvoterServicex</value>
+             </list>
+         </property>
+          <property name="order" value="0" />
+       </bean>
+       
+       <bean id="accountgroupServicex"
+          class="com.sift.gl.dao.AccountgroupImpl" />
+       <bean id="accountsegServicex"
+          class="com.sift.gl.dao.AccountsegImpl" />
+       <bean id="accountstrServicex"
+          class="com.sift.gl.dao.AccountstructImpl" />
+       <bean id="currrentuserServicex"
+          class="com.sift.gl.dao.CurrentuserdisplayImpl" scope="session" >
+         <aop:scoped-proxy/>
+       </bean> 
+       <bean id="currrentvoterServicex"
+          class="com.sift.votes.dao.CurrentvoterdisplayImpl" scope="session" >
+           <aop:scoped-proxy/>
+      </bean>
+       <bean id="accounttxnsServicex"
+          class="com.sift.gl.dao.AccounttxnsImpl" /> 
+       <bean id="accountsetupServicex"
+          class="com.sift.gl.dao.AccountsetupImpl" /> 
+       <bean id="reportlistServicex"
+          class="com.sift.gl.dao.ReportlistImpl" />
+     <bean id="periodcriteriaServicex"
+          class="com.sift.gl.dao.PeriodcriteriaImpl" />
+     <bean id="settingsServicex"
+          class="com.sift.gl.dao.SettingsImpl" />
+         <bean id="productServicex" 
+          class="com.sift.products.service.impl.ProductServiceImpl" />
+       <bean id="holidatesServicex"
+          class="com.sift.gl.dao.HolidatesImpl" /> 
+       <bean id="fileuploadServicex"
+          class="com.sift.gl.dao.FileuploadImpl" />  
+       <bean id="useraccountunlockServicex"
+          class="com.sift.gl.dao.UseraccountunlockImpl" />
+     <bean id="accountgroupsController" class="com.sift.gl.controller.AccountgroupsController">
+       <property name="accountgroupService" ref="accountgroupServicex" /> 
+     </bean>
+     <bean id="accountsegmentController" class="com.sift.gl.controller.AccountsegmentController">
+       <property name="accountsegService" ref="accountsegServicex" /> 
+     </bean>
+     <bean id="accountstructController" class="com.sift.gl.controller.AccountstructController">
+       <property name="accountstructService" ref="accountstrServicex" /> 
+     </bean>
+     <bean id="accounttxnsController" class="com.sift.gl.controller.AccounttxnsController">
+       <property name="accounttxnsService" ref="accounttxnsServicex" /> 
+     </bean>
+      <bean id="indexController" class="com.sift.gl.controller.IndexController">
+      <property name="currentuserdisplayService" ref="currrentuserServicex" />
+      </bean> 
+      <bean id="accountsetupController" class="com.sift.gl.controller.AccountsetupController">
+       <property name="accountsetupService" ref="accountsetupServicex" /> 
+     </bean>
+      <bean id="reportlistController" class="com.sift.gl.controller.ReportlistController">
+       <property name="reportlistService" ref="reportlistServicex" /> 
+     </bean>
+      <bean id="periodcriteriaController" class="com.sift.gl.controller.PeriodcriteriaController">
+       <property name="periodcriteriaService" ref="periodcriteriaServicex" /> 
+     </bean>
+     <bean id="jaspreptGenController" class="com.sift.gl.controller.JaspreptGenController">
+       <property name="currentuserdisplayService" ref="currrentuserServicex" />
+     </bean>
+     <bean id="datecriteriaController" class="com.sift.gl.controller.DatecriteriaController">
+     </bean>
+     <bean id="acdaterangeController" class="com.sift.gl.controller.AcdaterangeController">
+       <property name="accountsetupService" ref="accountsetupServicex" />  
+     </bean>
+      <bean id="acrangeController" class="com.sift.gl.controller.AcrangeController">
+       <property name="accountsetupService" ref="accountsetupServicex" />  
+     </bean>
+     <bean id="settingsController" class="com.sift.gl.controller.SettingsController">
+       <property name="settingsService" ref="settingsServicex" /> 
+     </bean>
+      <bean id="savingsCriteriaController" class="com.sift.savings.controller.SavingsCriteriaController">
+       <property name="productService" ref="productServicex" />  
+     </bean>
+     <bean id="productAccountController" class="com.sift.products.controller.ProductAccountController">
+       <property name="productService" ref="productServicex" />  
+     </bean>
+     <bean id="holidatesController" class="com.sift.gl.controller.HolidatesController">
+       <property name="holidatesService" ref="holidatesServicex" /> 
+     </bean>
+      <bean id="accountuploadController" class="com.sift.gl.controller.AccountuploadController">
+       <property name="fileuploadService" ref="fileuploadServicex" /> 
+     </bean>
+    <bean name="productsController"
+          class="com.sift.products.controller.ProductsController">
+  <property name="productService" ref="productServicex" />  
+     </bean> 
+     
+      <bean id="useraccountunlockController" class="com.sift.gl.controller.UseraccountunlockController">
+       <property name="useraccountunlockService" ref="useraccountunlockServicex" /> 
+     </bean>
+     
+     <bean id="accounttxnuploadController" class="com.sift.gl.controller.AccounttxnuploadController">
+       <property name="fileuploadService" ref="fileuploadServicex" /> 
+       <property name="accounttxnsService" ref="accounttxnsServicex" /> 
+       <property name="posttxnsService" ref="posttxnsServicex" /> 
+     </bean>
+     
+     <bean id="generictableviewServicex"
+          class="com.sift.gl.dao.GenerictableviewImpl" /> 
+
+<bean id="generictableviewController" class="com.sift.gl.controller.GenerictableviewController">
+       <property name="generictableviewService" ref="generictableviewServicex" /> 
+     </bean>
+<bean id="posttxnsServicex"
+          class="com.sift.gl.dao.PosttxnsImpl" />  
+<bean id="notificationService"
+          class="com.sift.gl.NotificationService" />
+<bean id="voterNotificationService"
+          class="com.sift.votes.service.VoterNotificationService" />
+
+ <bean id="hprequestServicex"
+          class="com.sift.hp.dao.HprequestImpl" />
+     <bean id="hprequestController" class="com.sift.hp.controller.HprequestController">
+       <property name="hprequestService" ref="hprequestServicex" /> 
+     </bean>
+
+<bean id="hpfileuploadServicex"
+          class="com.sift.hp.dao.HPFileuploadImpl" />
+
+<bean id="hptxnuploadController" class="com.sift.hp.controller.HptxnuploadController">
+       <property name="fileuploadService" ref="hpfileuploadServicex" /> 
+       <property name="posttxnsService" ref="posttxnsServicex" /> 
+     </bean>
+     
+     <bean id="hpgenerictableviewController" class="com.sift.hp.controller.HpgenerictableviewController">
+       <property name="generictableviewService" ref="generictableviewServicex" /> 
+     </bean>
+    <bean id="hpformasetupController" class="com.sift.hp.controller.HpformasetupController">
+       <property name="hprequestService" ref="hprequestServicex" /> 
+     </bean>
+
+      <bean name="index1Controller"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="index_1" />
+      <bean name="errorController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="error" />
+       <bean name="accessdeniedController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="accessdenied" />
+       <bean name="glappfeedbackController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="glappfeedback" />
+      <bean name="zkController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="gl/gl_journalzk" />
+      
+      <bean name="memberController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="members/member" />
+      
+       <!-- BAYO'S CONFIG       -->
+      
+   <context:component-scan base-package="com.sift.financial.controller" />
+   <context:component-scan base-package="com.sift.financial.member.controller" />
+   <context:component-scan base-package="com.sift.financial.stock.controller" />
+   <context:component-scan base-package="com.sift.financial.member.converter" />
+   <context:component-scan base-package="com.sift.financial.member.ws.services" />
+   
+   
+   
+   <!-- Define the OXM marshaller which is used to convert the Objects from/to XML. -->
+  <bean id="xstreamMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller" /> 
+ 
+  <!--<bean id="jaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller" >
+  	<property name="contextPath" value="com.sift,financial.members.ws.client"/>
+  </bean>
+   -->
+   
+   <bean id="xmlMessageConverter" class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+           <constructor-arg ref="xstreamMarshaller" />
+   </bean>
+   
+<bean id="jsonHttpMessageConverter"  class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+
+<!-- Bind the return value of the Rest service to the ResponseBody. -->
+
+<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+
+   <property name="messageConverters">
+
+       <util:list id="beanList">
+
+	   <ref bean="xmlMessageConverter" />
+
+	   <ref bean="jsonHttpMessageConverter" />
+
+       </util:list>
+
+   </property>
+
+</bean>
+
+<mvc:annotation-driven />
+      
+    <bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+   		<!--<property name="location" value="classpath:easycoopfin.properties"> </property>-->
+                <property name="ignoreResourceNotFound" value="true" />
+                <property name="locations">
+                <list>
+                  <value>classpath:easycoopfin.properties</value>
+                  <value>classpath:glconfig.properties</value>
+                </list>
+                </property>
+    </bean>
+
+    
+ <!-- <bean id="bundleViewResolver" class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+      <property name="basename" value="views"/>
+      <property name="order" value="1" />
+  </bean>
+ 
+  
+   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="jspViewResolver">  
+         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>  
+         <property name="prefix" value="/WEB-INF/views/"></property>  
+         <property name="suffix" value=".jsp"></property>  
+          <property name="order" value="2" />
+   </bean>
+    -->
+   
+    <bean id="sessionFactoryMem"
+          class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="configLocation"
+                  value="classpath:hibernate.cfg.xml">
+        </property>
+    </bean>
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <ref bean="identificationDocFormatter"/>
+                <ref bean="companyFormatter"/>
+                <ref bean="branchFormatter"/>
+                <ref bean="memberTypeFormatter"/>
+                <ref bean="religionFormatter"/>
+                <ref bean="taxGroupsFormatter"/>
+                <ref bean="banksFormatter"/>
+                <ref bean="batchUploadTypeFormatter"/>
+            </set>
+        </property>
+    </bean>
+    <util:map id="memEvents" value-type="java.lang.String">
+        <!--  <qualifier value="memEvents"/>-->
+        <entry value="${CREATE-MEMB}" key="ADD" />
+        <entry value="${UPDATE-MEMB}" key="EDIT" />
+        <entry value="${LIST-MEMB}" key="LIST" />
+        <entry value="${APPR-MEMB}" key="APPROVE" />
+        <entry value="${REJECT-MEMB}" key="REJECT" />
+		
+    </util:map>
+	
+    <util:map id="memAddrType" value-type="java.lang.String">
+        <entry value="${MEMBER-HOME}" key="MEMBER-HOME" />
+        <entry value="${MEMBER-OFFICE}" key="MEMBER-OFFICE" />
+        <entry value="${MEMBER-CORRESP}" key="MEMBER-CORRESP" />
+        <entry value="${MEMBER-NOK}" key="MEMBER-NOK" />
+    </util:map>
+	
+    <util:map id="stckEvents" value-type="java.lang.String">
+        <!--  <qualifier value="memEvents"/>-->
+        <entry value="${CREATE-STOCK}" key="ADD" />
+        <entry value="${UPD-STOCK}" key="EDIT" />
+        <entry value="${LIST-STOCK}" key="LIST" />
+        <entry value="${APPR-STOCK}" key="APPROVE" />
+        <entry value="${DEL-STOCK}" key="DELETE" />
+			
+    </util:map>
+	
+    <util:map id="defaultProducts" value-type="java.lang.String">
+        <entry value="${DEF-CONTR-PROD}" key="DEF-CONTR-PROD" />
+        <entry value="${DEF-SAV-PROD}" key="DEF-SAV-PROD" />
+    </util:map>
+        
+    <util:map id="divEvents" value-type="java.lang.String">
+        <!--  <qualifier value="memEvents"/>-->
+        <entry value="${DECLARE-DIV}" key="ADD" />
+        <entry value="${UPD-DIV}" key="EDIT" />
+        <entry value="${LIST-DIV}" key="LIST" />
+        <entry value="${APPR-DIV}" key="APPROVE" />
+        <entry value="${DEL-DIV}" key="DELETE" />
+        <entry value="${APPLY-DIV}" key="RUN" />
+	<entry value="${REBUILD-DIV}" key="REBUILD" />		
+    </util:map>
+	
+    <util:map id="servClientObjType" value-type="java.lang.String">
+        <entry value="${TYPE-XML}" key="TYPE-XML" />
+        <entry value="${TYPE-JSON}" key="TYPE-JSON" />
+    </util:map>
+	
+    <util:map id="serviceTypes" value-type="java.util.Map">
+        <entry key="OTHER-ACCT">
+            <util:map value-type="java.lang.String">
+                <entry value="${OTHER-ACCT-URI}" key="OBJ-URI" />
+                <entry value="${OTHER-ACCT-OBJ}" key="OBJ" />
+                <entry value="${TYPE-XML}" key="OBJ-TYPE" />
+            </util:map>
+        </entry>
+        <entry key="ACCOUNT">
+            <util:map value-type="java.lang.String">
+                <entry value="${ACCOUNT-URI}" key="OBJ-URI" />
+                <entry value="${ACCOUNT-OBJ}" key="OBJ" />
+                <entry value="${TYPE-XML}" key="OBJ-TYPE" />
+            </util:map>
+        </entry>
+        <entry key="POSTING">
+            <util:map  value-type="java.lang.String">
+                <entry value="${POST-URI}" key="OBJ-URI" />
+                <entry value="${POST-OBJ}" key="OBJ" />
+                <entry value="${TYPE-XML}" key="OBJ-TYPE"/>
+            </util:map>
+        </entry>
+        <entry key="PRODUCT">
+            <util:map  value-type="java.lang.String">
+                <entry value="${PROD-URI}" key="OBJ-URI" />
+                <entry value="${PROD-OBJ}" key="OBJ" />
+                <entry value="${TYPE-XML}" key="OBJ-TYPE"/>
+            </util:map>
+        </entry>
+    </util:map>
+	
+    <bean id="CompanyLocalDAO"
+          class="com.sift.financial.member.CompanyLocalDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="IdentificationDocDAO"
+          class="com.sift.financial.member.IdentificationDocDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="MemberHoldingsDAO"
+          class="com.sift.financial.member.MemberHoldingsDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="MemberDAO" class="com.sift.financial.member.MemberDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="MemberTypeDAO"
+          class="com.sift.financial.member.MemberTypeDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="AddressTypeDAO"
+          class="com.sift.financial.member.AddressTypeDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+	
+    <bean id="AddressEntriesDAO"
+          class="com.sift.financial.member.AddressEntriesDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="BranchDAO" class="com.sift.financial.member.BranchDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="CountriesDAO"
+          class="com.sift.financial.member.CountriesDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+	
+    <bean id="AddressElementsDAO"
+          class="com.sift.financial.member.AddressElementsDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="StatusDAO" class="com.sift.financial.member.StatusDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="StatusFlowDAO"
+          class="com.sift.financial.member.StatusFlowDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="ModuleDAO" class="com.sift.financial.member.ModuleDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="ActivityLogDAO"
+          class="com.sift.financial.member.ActivityLogDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="EventDAO" class="com.sift.financial.member.EventDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="CompStockTypeDetailDAO"
+          class="com.sift.financial.member.CompStockTypeDetailDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="CompanyTypeDAO"
+          class="com.sift.financial.member.CompanyTypeDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+
+    <bean id="CompanyCategoryDAO"
+          class="com.sift.financial.member.CompanyCategoryDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="CompanyOwnershipStructureDAO"
+          class="com.sift.financial.member.CompanyOwnershipStructureDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="CompStockTypeDAO"
+          class="com.sift.financial.member.CompStockTypeDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="SiftEntityDAO"
+          class="com.sift.financial.member.SiftEntityDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="CompanyBusinessAreaDAO"
+          class="com.sift.financial.member.CompanyBusinessAreaDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="CompanyBusinessActivityDAO"
+          class="com.sift.financial.member.CompanyBusinessActivityDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+	
+    <bean id="MemberHoldingsMovementDAO"
+          class="com.sift.financial.member.MemberHoldingsMovementDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+
+    <bean id="CompStockPropertyDAO"
+          class="com.sift.financial.member.CompStockPropertyDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="CompanyDAO"
+          class="com.sift.financial.member.CompanyDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="ReligionDAO"
+          class="com.sift.financial.member.ReligionDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="MailRecipientDAO"
+          class="com.sift.financial.member.MailRecipientDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="RecipientTypeDAO"
+          class="com.sift.financial.member.RecipientTypeDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="MailNotificationDAO"
+          class="com.sift.financial.member.MailNotificationDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="EventPropertyDAO"
+          class="com.sift.financial.member.EventPropertyDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+	
+
+    <bean id="memberManageService"  class="com.sift.financial.member.services.MemberManageImpl" parent="ManageTempl" scope="prototype"/>
+
+    <bean id="memberReviewService"  class="com.sift.financial.member.services.MemberReviewImpl" parent="ManageTempl" scope="prototype"/> 
+	
+    <bean id="ManageTempl"  class="com.sift.financial.services.ManagementTempl"/>
+	
+    <bean id="stockManageService"  class="com.sift.financial.stock.services.StockManageImpl" parent="ManageTempl" scope="prototype"/>
+
+	
+    <bean id="CountryAddressFilterDAO"
+          class="com.sift.financial.member.CountryAddressFilterDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+	
+    <bean id="TaxDAO" class="com.sift.financial.member.TaxDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="TaxGroupsDAO"
+          class="com.sift.financial.member.TaxGroupsDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean> 
+	
+    <bean id="BanksDAO" class="com.sift.financial.member.BanksDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+	
+    <bean id="CompanyMemberIdentifierDAO"
+          class="com.sift.financial.member.CompanyMemberIdentifierDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    
+    <bean id="MemberExtrafldDAO"
+          class="com.sift.financial.member.MemberExtrafldDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="MemberExtrafldoptionDAO"
+          class="com.sift.financial.member.MemberExtrafldoptionDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="MembersExtrafldEntriesDAO"
+          class="com.sift.financial.member.MembersExtrafldEntriesDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="genericWsClientService"  class="com.sift.financial.member.ws.client.GenericServiceImpl" scope="prototype"/>
+	
+    <bean id="memberHoldingsService"  class="com.sift.financial.stock.services.MemberHoldingsService" scope="prototype"/>
+		
+    <bean id="stockDetailService"  class="com.sift.financial.stock.services.StockDetailService" scope="prototype"/>
+	
+    <bean id="GenericConfigDAO" class="com.sift.financial.GenericConfigDAO">
+	<constructor-arg>
+	      <ref bean="LocalBaseDao"/>
+	 </constructor-arg>
+         <property name="opsQueryMap">
+	    <map>
+              
+		<entry key="MEM"><value>select e.member_id as member_id, e.surname as surname, e.first_name as firstname, e.middle_name as middlename,e.dob as dob, e.gender as gender,e.phone_no_1 as phone_no_1, e.phone_no_2 as phone_no_2, e.phone_no_3 as phone_no_3, e.email_add_1 as email_add_1, e.email_add_2 as email_add_2 , e.email_add_3  as email_add_3, e.member_no as member_no, f.religion_name as religion_name, a.member_type_val as type_val, b.name as comp_name, c.branch_name as branch_name,e.member_comp_id as comp_mem_id, d.identification_doc_name as iden_doc_name, e.identification_code as ident_code,e.nok_name as nok_name,e.nok_middle_name as nok_middlename, e.nok_surname as nok_surname, e.nok_phone as nok_phone, g.bank_name as bank_name,e.bank_account as bank_account, h.member_contrib_value as member_contrib_value,sum(i.holdings) as holdings from member e inner join religion f on f.religion_id=e.religion_id inner join member_type a on a.member_type_id=e.member_type_id inner join company b on e.company_id=b.id inner join branch c on e.branch_id=c.id inner join identification_doc d on e.identification_id=d.identification_doc_id left join banks g on e.bank_id = g.bank_id left join member_contribution h on e.member_id = h.member_id left join member_holdings i on e.member_id = i.member_id</value></entry>
+		  
+               <entry key="ADDR-OFF"><value>SELECT a.ADDR_FIELD_NAME as addr_fld,a.ADDR_FIELD_VALUE as addr_val, b.TYPE_NAME as addr_type  from address_entries a, address_type b</value></entry>
+                <entry key="ADDR-HOM"><value>SELECT a.ADDR_FIELD_NAME as addr_fld,a.ADDR_FIELD_VALUE as addr_val, b.TYPE_NAME as addr_type  from address_entries a, address_type b</value></entry>
+                <entry key="ADDR-COR"><value>SELECT a.ADDR_FIELD_NAME as addr_fld,a.ADDR_FIELD_VALUE as addr_val, b.TYPE_NAME as addr_type  from address_entries a, address_type b</value></entry>
+		<entry key="ADDR-KIN"><value>SELECT a.ADDR_FIELD_NAME as addr_fld,a.ADDR_FIELD_VALUE as addr_val, b.TYPE_NAME as addr_type  from address_entries a, address_type b</value></entry>
+                <entry key="LOAN">
+                    <value> </value>
+                </entry> 
+		<entry key="CNTR"><value> SELECT a.accountno as accountno, a.name as name, asegc, abs(balance) as balance,a.dateopened as dateopened from accounts a inner join member b on a.asegc = b.member_no and a.branch = b.branch_id  and a.companyid = b.company_id inner join custaccountdetails c on a.Branch = c.Branchid and a.Companyid= c.Companyid and a.AccountNo = c.AccountNo inner join products d on c.Branchid = d.branch_id and c.Companyid = d.company_id and c.Product = d.code</value></entry>
+		<entry key="SAV"><value> SELECT a.accountno as accountno, a.name as name, asegc, abs(balance) as balance,a.dateopened as dateopened  from accounts a inner join member b on a.asegc = b.member_no and a.branch = b.branch_id  and a.companyid = b.company_id inner join custaccountdetails c on a.Branch = c.Branchid and a.Companyid= c.Companyid and a.AccountNo = c.AccountNo inner join products d on c.Branchid = d.branch_id and c.Companyid = d.company_id and c.Product = d.code</value></entry>
+		<entry key="PUR"><value> </value></entry>
+		<entry key="HISTORY"><value> </value></entry>
+	    </map>
+        </property>
+	 </bean>
+    <bean id="LocalBaseDao" class="com.sift.financial.BaseDao"> 
+        <property name="jdbcTemplate">
+            <ref bean="localTemplate"/>
+        </property>
+    </bean>
+
+    <bean id="localTemplate"
+          class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+    </bean>
+
+    <!--
+     <bean id="LocalSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+         <property name="jndiName">
+             <value>java:comp/env/jdbc/easycoopfin</value>
+         </property>
+     </bean>
+    -->
+    <bean id="voteWsService"  class="com.sift.financial.member.ws.services.VoteWsImpl" scope="prototype" />
+    
+    <bean id="voteRESTFacade" class="com.sift.financial.member.ws.services.VoteRESTFacade" >
+    	 
+        <property name="voteWsImpl">
+            <ref bean="voteWsService"/>
+        </property>
+    </bean>
+   
+    <bean id ="crewController" class="com.sift.financial.member.controller.MemberController" scope="prototype" >
+        <property name="memberService">
+            <ref bean="memberManageService" />
+        </property>
+        <property name="conversionService">
+            <ref bean="conversionService" />
+        </property>
+        <property name="memEvents">
+            <ref bean="memEvents" />
+        </property>
+        <property name="memAddrType">
+            <ref bean="memAddrType" />
+        </property>
+        
+        <property name="startPos" 
+                  value ="${startPos}">
+        </property>
+        
+        <property name="apprvdStockStat" 
+                  value ="${apprvdStockStat}">
+        </property>
+        
+        <!--  <property name="CurrentuserdisplayImpl">
+                <ref bean="currrentuserServicex" />
+        </property>
+        -->
+        
+    </bean>
+   
+    <bean id="DividendScheduleDAO"
+          class="com.sift.financial.member.DividendScheduleDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="DividendDAO"
+          class="com.sift.financial.member.DividendDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="DividendTypeDAO"
+          class="com.sift.financial.member.DividendTypeDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="DividendNumberIdentifierDAO"
+          class="com.sift.financial.member.DividendNumberIdentifierDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="PatronageNumberIdentifierDAO"
+          class="com.sift.financial.member.PatronageNumberIdentifierDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="PatronageRefundDAO"
+          class="com.sift.financial.member.PatronageRefundDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="PatronageScheduleDAO"
+          class="com.sift.financial.member.PatronageScheduleDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="PatronageRefundTypeDAO"
+          class="com.sift.financial.member.PatronageRefundTypeDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+   
+    <bean id="stockValidator"  class="com.sift.financial.validator.StockValidator" scope="prototype"/>
+	
+    <bean id="memberValidator"  class="com.sift.financial.validator.MemberValidator" scope="prototype"/>
+    
+    <bean id="siftFinancialUtil" class="com.sift.financial.utility.SiftFinancialUtil" scope="prototype"/>
+    
+    <bean id="MemberContributionDAO"
+           class="com.sift.financial.member.MemberContributionDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    
+    <util:map id="disckEvents" value-type="java.lang.String">
+        <entry value="${INIT-MEMB-SUSP}" key="SUSPEND" />
+        <entry value="${INIT-MEMB-EXPUL}" key="EXIT" />
+        <entry value="${APPR-MEMB-SUSP}" key="APPROVE SUSPENSION" />
+        <entry value="${APPR-MEMB-SUSP}" key="REJECT SUSPENSION" />
+        <entry value="${APPR-MEMB-EXPUL}" key="APPROVE EXIT" />
+        <entry value="${APPR-MEMB-EXPUL}" key="REJECT EXIT" />
+        <entry value="${REINST-MEMB}" key="REINSTATE" />
+        <entry value="${MEMB-RESIGN-INIT}" key="RESIGN" />	
+        <entry value="${APPR-MEMB-RESIGN}" key="APPROVE RESIGN" />
+        <entry value="${APPR-MEMB-RESIGN}" key="REJECT RESIGN" />	
+    </util:map> 
+    
+    
+    
+    <bean id="dividendValidator"  class="com.sift.financial.validator.DividendValidator" scope="prototype"/> 
+    
+    
+    <bean id="benefitService"  class="com.sift.financial.benefits.services.BenefitService" scope="prototype"/>
+    
+ 
+<util:map id="viewData" value-type="java.util.Map">
+        <entry key="batMemberList" >
+          <util:map value-type="java.lang.String">
+                   <entry key="type"><value>MEMTYPE</value></entry>
+                   <entry key="page"><value>/members/batchMemberList</value></entry>
+                   <entry key="status"><value>${processedMember}</value></entry> 
+                   <entry key="title"><value>Processed Member List</value></entry> 
+          </util:map>
+       </entry>
+       <entry key="falMemberList">
+                 <util:map value-type="java.lang.String">
+                  <entry key="type"><value>MEMTYPE</value></entry>
+                  <entry key="page"><value>/members/batchMemberListFail</value></entry>
+                  <entry key="status"><value>${failedMember}</value></entry> 
+                  <entry key="title"><value>Member List With Errors</value></entry> 
+                 </util:map>
+        </entry>
+        <entry key="valMemberList">
+                 <util:map value-type="java.lang.String">
+                  <entry key="type"><value>MEMTYPE</value></entry>
+                  <entry key="page"><value>/members/batchMemberList</value></entry>
+                  <entry key="status"><value>${memberValidated}</value></entry> 
+                  <entry key="title"><value>Validated Member List</value></entry> 
+                 </util:map>
+        </entry>
+
+        <entry key="batStockList" >
+            <util:map value-type="java.lang.String">
+                     <entry key="type"><value>STKTYPE</value></entry>
+                     <entry key="page"><value>/members/batchStockList</value></entry>
+                     <entry key="status"><value>${stockProcessed}</value></entry> 
+                     <entry key="title"><value>Processed Stock List</value></entry> 
+            </util:map>
+        </entry>
+       <entry key="falStockList">
+                 <util:map value-type="java.lang.String">
+                  <entry key="type"><value>STKTYPE</value></entry>
+                  <entry key="page"><value>/members/batchStockListFail</value></entry>
+                    <entry key="status"><value>${failedStock}</value></entry> 
+                    <entry key="title"><value>Stock List With Errors</value></entry> 
+                 </util:map>
+        </entry>
+        <entry key="valStockList">
+                 <util:map value-type="java.lang.String">
+                  <entry key="type"><value>STKTYPE</value></entry>
+                  <entry key="page"><value>/members/batchStockList</value></entry>
+                    <entry key="status"><value>${stockValidated}</value></entry> 
+                    <entry key="title"><value>Validated Stock List</value></entry> 
+                 </util:map>
+        </entry>
+
+        <entry key="batAddrList" >
+            <util:map value-type="java.lang.String">
+                     <entry key="type"><value>ADDTYPE</value></entry>
+                     <entry key="page"><value>/members/batchAddrList</value></entry>
+                     <entry key="status"><value>${addrProcessed}</value></entry> 
+                     <entry key="title"><value>Processed Address List</value></entry> 
+            </util:map>
+        </entry>
+       <entry key="falAddrList">
+                 <util:map value-type="java.lang.String">
+                  <entry key="type"><value>ADDTYPE</value></entry>
+                  <entry key="page"><value>/members/batchAddrListFail</value></entry>
+                    <entry key="status"><value>${failedAddr}</value></entry> 
+                    <entry key="title"><value>Address List With Errors</value></entry> 
+                 </util:map>
+        </entry>
+        <entry key="valAddrList">
+                 <util:map value-type="java.lang.String">
+                  <entry key="type"><value>ADDTYPE</value></entry>
+                  <entry key="page"><value>/members/batchAddrList</value></entry>
+                    <entry key="status"><value>${addrValidated}</value></entry> 
+                    <entry key="title"><value>Validated Address List</value></entry> 
+                 </util:map>
+        </entry>
+        
+        <entry key="batExtrafldList" >
+            <util:map value-type="java.lang.String">
+                     <entry key="type"><value>EXTTYPE</value></entry>
+                     <entry key="page"><value>/members/batchExtrafldList</value></entry>
+                     <entry key="status"><value>${extrafldProcessed}</value></entry> 
+                     <entry key="title"><value>Processed Additional field List</value></entry> 
+            </util:map>
+        </entry>
+       <entry key="falExtrafldList">
+                 <util:map value-type="java.lang.String">
+                  <entry key="type"><value>EXTTYPE</value></entry>
+                  <entry key="page"><value>/members/batchExtrafldListFail</value></entry>
+                    <entry key="status"><value>${failedExtrafld}</value></entry> 
+                    <entry key="title"><value>Additional field List With Errors</value></entry> 
+                 </util:map>
+        </entry>
+        <entry key="valExtrafldList">
+                 <util:map value-type="java.lang.String">
+                  <entry key="type"><value>EXTTYPE</value></entry>
+                  <entry key="page"><value>/members/batchExtrafldList</value></entry>
+                    <entry key="status"><value>${extrafldValidated}</value></entry> 
+                    <entry key="title"><value>Validated Additional field List</value></entry> 
+                 </util:map>
+        </entry>
+ </util:map> 
+ 
+ <util:map id="divViewData" value-type="java.util.Map">
+        <entry key="listNew" >
+          <util:map value-type="java.lang.String">
+                   <entry key="objView"><value>../dividend/update.htm</value></entry>
+                   <entry key="objAppr"><value>../dividend/divObject.htm</value></entry>
+                    <entry key="viewLabel"><value>Update</value></entry>
+                    <entry key="apprLabel"><value>Verify</value></entry>
+                   <entry key="page"><value>/dividend/divList</value></entry>
+                   <entry key="status"><value>${NEW-DIV}</value></entry> 
+                   <entry key="title"><value>New Dividend List</value></entry> 
+          </util:map>
+       </entry>
+       <entry key="listApproved">
+                 <util:map value-type="java.lang.String">
+                   <entry key="objView"><value>../dividend/viewDivObj.htm</value></entry>
+                   <entry key="viewLabel"><value>View</value></entry>
+		   <entry key="page"><value>/dividend/divList</value></entry>
+		   <entry key="status"><value>${APPR-DIV}</value></entry> 
+                   <entry key="title"><value>Approved Dividend List</value></entry> 
+                 </util:map>
+        </entry>
+        <entry key="listRejected">
+                 <util:map value-type="java.lang.String">
+                  <entry key="objView"><value>../dividend/viewDivObj.htm</value></entry>
+                  <entry key="viewLabel"><value>View</value></entry>
+		   <entry key="page"><value>/dividend/divList</value></entry>
+		   <entry key="status"><value>${REJ-DIV}</value></entry> 
+                   <entry key="title"><value>Rejected Dividend List</value></entry> 
+                 </util:map>
+        </entry>
+
+        <entry key="listCancelled" >
+            <util:map value-type="java.lang.String">
+                     <entry key="objView"><value>../dividend/viewDivObj.htm</value></entry>
+                     <entry key="viewLabel"><value>View</value></entry>
+                     <entry key="page"><value>/dividend/divList</value></entry>
+                     <entry key="status"><value>${CANNCELED-DIV}</value></entry> 
+                     <entry key="title"><value>Cancelled Dividend List</value></entry> 
+            </util:map>
+        </entry>
+        <entry key="listEdited" >
+            <util:map value-type="java.lang.String">
+                     <entry key="objView"><value>../dividend/viewDivObj.htm</value></entry>
+                     <entry key="viewLabel"><value>View</value></entry>
+                     <entry key="page"><value>/dividend/divList</value></entry>
+                     <entry key="status"><value>${UPDATED-DIV}</value></entry> 
+                     <entry key="title"><value>Updated Dividend List</value></entry> 
+            </util:map>
+        </entry>
+        <entry key="listPaid" >
+            <util:map value-type="java.lang.String">
+                     <entry key="objView"><value>../dividend/viewDivObj</value></entry>
+                     <entry key="viewLabel"><value>View</value></entry>
+                     <entry key="page"><value>/dividend/divList</value></entry>
+                     <entry key="status"><value>${PAID-DIV}</value></entry> 
+                     <entry key="title"><value>Paid Dividend List</value></entry> 
+            </util:map>
+        </entry>
+ </util:map>
+ 
+ <bean id="benefitScheduleService"  class="com.sift.financial.benefits.schedule.BenefitScheduleService" parent="ManageTempl" scope="prototype"/> 
+ <bean id="divTempl" class="com.sift.financial.benefits.schedule.BuildDivPayableScheduleInterface" abstract="true" parent="benefitScheduleService"/> 
+ <bean id="buildDivPayableService"  class="com.sift.financial.benefits.schedule.BuildDivPayableScheduleImpl"  parent="divTempl"  scope="prototype"/>
+<bean id="mailtemplateutility"  class="com.sift.financial.services.Mailtemplateutility"  scope="prototype"/>
+
+     
+    <bean id="memberDiscpService"  class="com.sift.financial.member.services.MemberDisciplineImpl" parent="ManageTempl" scope="prototype"/>
+     
+    <bean id="memberDiscValidator"  class="com.sift.financial.validator.MemberDiscValidator" scope="prototype"/>
+
+    <bean id="MemberArchiveDAO"
+            class="com.sift.financial.member.MemberArchiveDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    
+    
+     <util:map id="pageData" value-type="java.util.Map">
+	           	  <entry key="MEM" >
+	                     <util:map value-type="java.lang.String">
+	                              <entry key="tab"><value>MEMBER</value></entry>
+	                              <entry key="page"><value>enqMember.jsp</value></entry>
+	                              <entry key="orderClause"><value>e.surname</value></entry> 
+	                              <entry key="openWhereClause"><value>and e.member_id=</value></entry> 
+	                              <entry key="endWhereClause"><value></value></entry>  
+	                              <entry key="parentPos"><value>0</value></entry>
+	                              <entry key="mapToParent"><value>false</value></entry> 
+	                              <entry key="detailvw"><value></value></entry> 
+	                      </util:map>
+	           	 </entry>
+	           	 <entry key="ADDR-OFF">
+	 			   <util:map value-type="java.lang.String">
+	 			    <entry key="tab"><value>ADDRESS-OFFICE</value></entry>
+	                             <entry key="page"><value>enqAddress1.jsp</value></entry>
+	 			    <entry key="orderClause"><value>a.SERIAL_POS asc</value></entry> 
+	 			    <entry key="openWhereClause"><value>and a.TYPE_ID=b.ID and b.TYPE_NAME='MEMBER OFFICE' and a.KEY_ID=</value></entry> 
+	 			    <entry key="endWhereClause"><value></value></entry>  
+	 			    <entry key="parentPos"><value></value></entry> 
+	 			    <entry key="mapToParent"><value>false</value></entry>
+	                             <entry key="detailvw"><value></value></entry> 
+	 			   </util:map>
+	           	  </entry>
+	                   <entry key="ADDR-HOM">
+	 			   <util:map value-type="java.lang.String">
+	 			    <entry key="tab"><value>ADDRESS-HOME</value></entry>
+	                             <entry key="page"><value>enqAddress2.jsp</value></entry>
+	 			    <entry key="orderClause"><value>a.SERIAL_POS asc</value></entry> 
+	 			    <entry key="openWhereClause"><value>and a.TYPE_ID=b.ID and b.TYPE_NAME='MEMBER HOME' and a.KEY_ID=</value></entry> 
+	 			    <entry key="endWhereClause"><value></value></entry>  
+	 			    <entry key="parentPos"><value></value></entry> 
+	 			    <entry key="mapToParent"><value>false</value></entry> 
+	                             <entry key="detailvw"><value></value></entry>
+	 			   </util:map>
+	           	  </entry>
+	                    <entry key="ADDR-COR">
+	 			   <util:map value-type="java.lang.String">
+	 			    <entry key="tab"><value>ADDRESS-CORRESP</value></entry>
+	                             <entry key="page"><value>enqAddress3.jsp</value></entry>
+	 			    <entry key="orderClause"><value>a.SERIAL_POS asc</value></entry> 
+	 			    <entry key="openWhereClause"><value>and a.TYPE_ID=b.ID and b.TYPE_NAME='MEMBER CORRESPONDENCE' and a.KEY_ID=</value></entry> 
+	 			    <entry key="endWhereClause"><value></value></entry>  
+	 			    <entry key="parentPos"><value></value></entry> 
+	 			    <entry key="mapToParent"><value>false</value></entry> 
+	                             <entry key="detailvw"><value></value></entry>
+	 			   </util:map>
+	           	  </entry>
+	                   <entry key="ADDR-KIN">
+	 			   <util:map value-type="java.lang.String">
+	 			    <entry key="tab"><value>ADDRESS-NOK</value></entry>
+	                             <entry key="page"><value>enqAddress4.jsp</value></entry>
+	 			    <entry key="orderClause"><value>a.SERIAL_POS asc</value></entry> 
+	 			    <entry key="openWhereClause"><value>and a.TYPE_ID=b.ID and b.TYPE_NAME='MEMBER NEXT OF KIN' and a.KEY_ID=</value></entry> 
+	 			    <entry key="endWhereClause"><value></value></entry>  
+	 			    <entry key="parentPos"><value></value></entry> 
+	 			    <entry key="mapToParent"><value>false</value></entry> 
+	                             <entry key="detailvw"><value></value></entry>
+	 			   </util:map>
+	           	  </entry>
+	           	  <entry key="LOAN">
+	  			   <util:map value-type="java.lang.String">
+	  			    <entry key="tab"><value>LOAN</value></entry>
+                                                                                                                        <entry key="page"><value>enqLoan.jsp</value></entry>
+	  			    <entry key="orderClause"><value></value></entry> 
+	  			    <entry key="openWhereClause"><value></value></entry> 
+	  			    <entry key="endWhereClause"><value></value></entry> 
+	  			    <entry key="parentPos"><value>1</value></entry>
+	  			    <entry key="mapToParent"><value>false</value></entry> 
+	  			    <entry key="detailvw"><value></value></entry> 
+	  			  </util:map>
+	           	  </entry>
+	           	  <entry key="CNTR">
+	  			  <util:map value-type="java.lang.String">
+	  			    <entry key="tab"><value>CONTRIBUTION</value></entry>
+	                             <entry key="page"><value>enqContrb.jsp</value></entry>
+	  			    <entry key="orderClause"><value>a.name</value></entry> 
+	  			    <entry key="openWhereClause"><value>and d.product_type_code = 'C' and b.member_id=</value></entry> 
+	  			    <entry key="endWhereClause"><value></value></entry> 
+	  			    <entry key="parentPos"><value>1</value></entry> 
+	  			    <entry key="mapToParent"><value>false</value></entry>
+	  			     <entry key="detailvw"><value></value></entry> 
+	  			  </util:map>
+	           	  </entry>
+	 		<entry key="SAV">
+	  			  <util:map value-type="java.lang.String">
+	  			    <entry key="tab"><value>SAVINGS</value></entry>
+	                             <entry key="page"><value>enqSavings.jsp</value></entry>
+	  			    <entry key="orderClause"><value>a.name </value></entry> 
+	  			    <entry key="openWhereClause"><value>and d.product_type_code = 'S' and b.member_id=</value></entry> 
+	  			    <entry key="endWhereClause"><value></value></entry> 
+	  			    <entry key="parentPos"><value>1</value></entry> 
+	  			    <entry key="mapToParent"><value>false</value></entry>
+	  			    <entry key="detailvw"><value></value></entry> 
+	  			  </util:map>
+	           	  </entry> 
+	           	  
+	           	  <entry key="HIST">
+	 			  <util:map value-type="java.lang.String">
+	 			    <entry key="tab"><value>HISTORY</value></entry>
+	                             <entry key="page"><value>enqHistory.jsp</value></entry>
+	 			     <entry key="orderClause"><value> </value></entry> 
+	 			    <entry key="openWhereClause"><value></value></entry> 
+	 			    <entry key="endWhereClause"><value></value></entry> 
+	 			    <entry key="parentPos"><value>1</value></entry> 
+	 			    <entry key="mapToParent"><value>false</value></entry>
+	 			    <entry key="detailvw"><value>enquiryDtl.htm?vwType=HIST</value></entry> 
+	 			  
+	 			  </util:map>
+	           	  </entry> 
+        </util:map>
+        
+    <util:map id="enqEvents" value-type="java.lang.String">
+        <entry value="${COOP-INQRY}" key="getMember" />
+        <entry value="${ADMIN-INQRY}" key="getAdminMember" />
+            
+    </util:map>
+
+         
+    <util:map id="batchEvents" value-type="java.lang.String">
+        <entry value="${BATCH-MEMBER}" key="CREATE-BATCH"/>
+        <entry value="${GET-TEMPL}" key="GET-TEMPL"/>
+            
+        <entry value="${VALID-BATCH}" key="valMembers"/>
+        <entry value="${VALID-BATCH}" key="refMembers"/>
+            
+        <entry value="${VALID-STKBATCH}" key="valStocks"/>
+        <entry value="${VALID-STKBATCH}" key="refStocks"/>
+            
+        <entry value="${VALID-ADDBATCH}" key="valAddress"/>
+        <entry value="${VALID-ADDBATCH}" key="refAddress"/>
+            
+        <entry value="${APPR-BATMEM}" key="apprMembers"/>
+        <entry value="${APPR-BATMEM}" key="rejMembers"/>
+        <entry value="${APPR-BATMEM}" key="apprMembersWithout"/>
+            
+        <entry value="${APPR-STKBATCH}" key="apprStocks"/>
+        <entry value="${APPR-STKBATCH}" key="rejStocks"/>
+        <entry value="${APPR-STKBATCH}" key="apprStocksWithout"/>
+            
+        <entry value="${APPR-ADDBATCH}" key="apprAddress"/>
+        <entry value="${APPR-ADDBATCH}" key="rejAddress"/>
+        <entry value="${APPR-ADDBATCH}" key="apprAddressWithout"/>
+        
+        <entry value="${VALID-EXTRAFLDBATCH}" key="valExtraflds"/>
+        <entry value="${VALID-EXTRAFLDBATCH}" key="refExtraflds"/>
+        <entry value="${APPR-EXTRAFLDBATCH}" key="apprExtraflds"/>
+        <entry value="${APPR-EXTRAFLDBATCH}" key="rejExtraflds"/>
+        <entry value="${APPR-EXTRAFLDBATCH}" key="apprExtrafldsWithout"/>
+        
+    </util:map>
+         
+         
+    <bean id="memberBatchService"  class="com.sift.financial.member.services.BatchManagementImpl" parent="ManageTempl" scope="prototype"/>
+        
+    <bean id="BatchAddressEntriesDAO"
+          class="com.sift.financial.member.BatchAddressEntriesDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="BatchExtrafldEntriesDAO"
+          class="com.sift.financial.member.BatchExtrafldEntriesDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="BatchUploadReferenceDAO"
+          class="com.sift.financial.member.BatchUploadReferenceDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="BatchMemberDAO"
+          class="com.sift.financial.member.BatchMemberDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="BatchUploadFileDAO"
+          class="com.sift.financial.member.BatchUploadFileDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="BatchUploadTypeDAO"
+          class="com.sift.financial.member.BatchUploadTypeDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="BatchStockDAO"
+          class="com.sift.financial.member.BatchStockDAO">
+        <property name="sessionFactory">
+            <ref bean="sessionFactoryMem" />
+        </property>
+    </bean>
+    <bean id="BatchContributionDAO"
+	    	class="com.sift.financial.member.BatchContributionDAO">
+	    	<property name="sessionFactory">
+	    		<ref bean="sessionFactoryMem"/>
+	    	</property>
+	    </bean>
+	    
+	    <bean id="MemberContributionArchiveDAO"
+	    	class="com.sift.financial.member.MemberContributionArchiveDAO">
+	    	<property name="sessionFactory">
+	    		<ref bean="sessionFactoryMem"/>
+	    	</property>
+    </bean>
+    
+    <bean id="batchScheduleService"  class="com.sift.financial.member.schedule.BatchScheduleService" parent="ManageTempl" scope="prototype"/>
+
+    <bean id="procTempl" class="com.sift.financial.member.schedule.BatchScheduleInterface" abstract="true" parent="batchScheduleService"/>
+    
+    <bean id="MEMTYPE"  class="com.sift.financial.member.schedule.MemberSchedule" parent="procTempl" scope="prototype"/>
+    
+    <bean id="STKTYPE"  class="com.sift.financial.member.schedule.MemberStockSchedule" parent="procTempl" scope="prototype"/>
+    
+    <bean id="ADDTYPE"  class="com.sift.financial.member.schedule.MemberAddressSchedule" parent="procTempl" scope="prototype"/>
+
+    <bean id="EXTTYPE"  class="com.sift.financial.member.schedule.MemberExtrafldSchedule" parent="procTempl" scope="prototype"/>
+    
+    <bean id="batchMemberValidator"  class="com.sift.financial.member.schedule.BatchMemberValidator" scope="prototype"/>
+
+    <bean id="batchStockValidator"  class="com.sift.financial.member.schedule.BatchStockValidator" scope="prototype"/>
+    
+    <bean id="batchAddressValidator"  class="com.sift.financial.member.schedule.BatchAddressValidator" scope="prototype"/>
+  
+    <bean id="batchExtrafldValidator"  class="com.sift.financial.member.schedule.BatchExtrafldValidator" scope="prototype"/>
+    
+    <bean id="validateScheduleService"  class="com.sift.financial.member.schedule.ValidateScheduleService" parent="ManageTempl" scope="prototype"/>
+
+    <bean id="valMEMTYPEImpl"  class="com.sift.financial.member.schedule.ValidateScheduleMemberImpl" parent="validateScheduleService" scope="prototype"/>
+
+    <bean id="apprMEMTYPEImpl"  class="com.sift.financial.member.schedule.ApprovalScheduleMemberImpl" parent="validateScheduleService" scope="prototype"/>
+
+    <bean id="valSTKTYPEImpl"  class="com.sift.financial.member.schedule.ValidateScheduleMemberStockImpl" parent="validateScheduleService" scope="prototype"/>
+
+    <bean id="apprSTKTYPEImpl"  class="com.sift.financial.member.schedule.ApproveScheduleMemberStockImpl" parent="validateScheduleService" scope="prototype"/>
+
+    <bean id="valADDTYPEImpl"  class="com.sift.financial.member.schedule.ValidateScheduleMemberAddressImpl" parent="validateScheduleService" scope="prototype"/>
+
+    <bean id="apprADDTYPEImpl"  class="com.sift.financial.member.schedule.ApproveScheduleMemberAddressImpl" parent="validateScheduleService" scope="prototype"/>
+
+    <bean id="valEXTTYPEImpl"  class="com.sift.financial.member.schedule.ValidateScheduleMemberExtrafldImpl" parent="validateScheduleService" scope="prototype"/>
+
+    <bean id="apprEXTTYPEImpl"  class="com.sift.financial.member.schedule.ApproveScheduleMemberExtrafldImpl" parent="validateScheduleService" scope="prototype"/>
+
+   
+   <bean id="MailNotificationService"  class="com.sift.financial.services.MailNotificationImpl" scope="prototype">
+  <property name="mailRecipientDAO"><ref bean="MailRecipientDAO"></ref></property>
+  <property name="mailSender"><ref bean="mailSender"></ref></property>
+  <property name="notifier"><value>${FROMADDRESSS}</value></property>
+  <property name="groupMail">
+        <map>
+              <entry key=""><value></value></entry>
+        </map>
+ </property> 	
+ 
+<property name="replyToAddress"><value>${REPLYTOADDR}</value></property>
+</bean>
+   
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	         <property name="host" value="${MAILIP}"/>
+                 <property name="port" value="${MAILPORT}"/>
+                 <property name="username" value="easycoopfin@africaprudential.com"/>
+                 <property name="password" value="Admin@321"/>
+                 <property name="javaMailProperties">
+                    <props>
+                        <prop key="mail.transport.protocol">smtp</prop>
+                        <prop key="mail.smtp.auth">true</prop>
+                        <prop key="mail.smtp.starttls.enable">true</prop>
+                        <prop key="mail.debug">true</prop>
+                    </props>
+                </property>
+  </bean>
+  
+    <util:map id="stockEvents" value-type="java.lang.String">
+        <!--  <qualifier value="memEvents"/>-->
+        <entry value="${STK-BATCH-BUY}" key="C" />
+        <entry value="${STK-BATCH-SELL}" key="D" />
+    </util:map>
+
+    <bean id="payDivTempl" class="com.sift.financial.benefits.schedule.PayDividendInterface" abstract="true" parent="benefitScheduleService"/>
+ 
+<bean id="payDivImpl"  class="com.sift.financial.benefits.schedule.PayDividendScheduleImpl"  parent="payDivTempl"  scope="prototype"/>
+
+<bean id="genericDivPayScheduler" class="com.sift.financial.benefits.schedule.GenericDividendPaymentTask">
+<property name="payDividendService">
+	<ref bean="payDivImpl"></ref>
+</property>
+</bean>
+       
+    <bean id="runeodScheduler" class="com.sift.gl.service.RuneodScheduler" />
+    <!--
+    <task:scheduler id="dScheduler" pool-size="5"/>
+    <task:scheduled-tasks scheduler="dScheduler" > -->
+       <!-- <task:scheduled  ref="runeodScheduler" method="run" cron="30 35 10,14,16 * * *" /> --><!---set to run at 30s after 4.35pm,2.35pm and 10.35am for anot-->      
+      <!--   <task:scheduled  ref="runeodScheduler" method="run" cron="0 30 0,*,* * * *" />  -->
+      <!--   <task:scheduled  ref="runeodScheduler" method="run" cron="0 0 0 * * *" />  -->
+      <!--   <task:scheduled  ref="runeodScheduler" method="run" cron="0 0 0 * * *" />  -->
+<!--    </task:scheduled-tasks>  -->
+    <task:annotation-driven executor="taskExec"/>
+    <task:executor id="taskExec" pool-size="5"/>
+   
+</beans>

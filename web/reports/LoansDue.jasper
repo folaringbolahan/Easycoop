@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.0.3.final using JasperReports Library version 6.0.3  -->
+<!-- 2018-05-24T05:55:43 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LoansDue" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="410ff73e-edc3-4625-a525-73a68d1b39d1">
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.1" value="pageHeader"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.band.2" value="pageFooter"/>
+	<property name="net.sf.jasperreports.export.xls.exclude.origin.keep.first.band.3" value="columnHeader"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="EAZYCOOPFIN"/>
+	<parameter name="startdate" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="enddate" class="java.util.Date" isForPrompting="false"/>
+	<parameter name="companyname" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="companyid" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="branchid" class="java.lang.String" isForPrompting="false"/>
+	<queryString language="SQL">
+		<![CDATA[select * from MONTHLY_LOAN_SCHEDULE_VIU where company_id=$P{companyid} and branch_id=$P{branchid}  and payment_status<>'P'
+ and expected_repayment_date<=now()]]>
+	</queryString>
+	<field name="LOAN_CASE_ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="MEMBER_COMP_ID" class="java.lang.String">
+		<fieldDescription><![CDATA[Member Identification At the Company]]></fieldDescription>
+	</field>
+	<field name="MEMBER_NO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LOAN_STATUS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COMPANY_ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COMPANY_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BRANCH_ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BRANCH_CODE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BRANCH_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ACTUAL_REPAYMENT_AMOUNT" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ACTUAL_REPAYMENT_DATE" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EXPECTED_REPAYMENT_DATE" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AMOUNT_PRINCIPAL" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AMOUNT_INTEREST" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CUMM_PRINCIPAL" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PAYMENT_STATUS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PENALTY_INCURRED" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LOAN_AMOUNT" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RATE" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRINCIPAL_BAL" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="INTEREST_BAL" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TOTAL_OUTSTANDING" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LOAN_ID" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EXPECTED_REPAYMENT_AMOUNT" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SCHEDULE_ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="720" y="0" width="100" height="20" uuid="0ff0324e-0d0e-4f8f-9586-dbcf0d4d12f5"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="200" height="20" uuid="b9a9a273-ca10-43e8-9bb7-a5d9aa23734e">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{companyname}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="200" y="3" width="400" height="30" forecolor="#4A201F" uuid="2b95e3cf-20dd-4e59-bee2-b4526ee07185">
+					<property name="local_mesure_unitwidth" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LOANS DUE FOR REPAYMENT]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="72" splitType="Stretch">
+			<staticText>
+				<reportElement x="82" y="39" width="100" height="30" uuid="0c7f6ede-b265-4e97-a9ed-e7c9002bd1e5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REF NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="41" width="80" height="30" uuid="bf063a30-3abb-4b15-86c9-ba3cc11f2242"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="39" width="110" height="30" uuid="6bd397fc-52aa-42e3-8140-d6bc0d671dc3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MEMBER NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="286" y="40" width="100" height="30" uuid="563ebfd5-ebb8-4cec-a515-32742ac8b2ff"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPAY AMOUNT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="382" y="41" width="100" height="30" uuid="f4f73fef-33a7-4744-a980-e8194d8f0ac2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DUE DATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="40" width="100" height="30" uuid="977a71a1-11b4-4c46-b3fa-445ccd15e608"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSTALLMENT NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="580" y="41" width="100" height="30" uuid="37ac385f-cad6-4141-98b5-5e742615888a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[STATUS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="680" y="42" width="100" height="30" uuid="e21230fb-67da-4b96-a1d9-91d3e4bc6fd7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Century Gothic" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PENALTY]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="58" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="13" width="82" height="21" uuid="eb98e879-3bca-454e-8233-c1db1b7b547d"/>
+				<textFieldExpression><![CDATA[$F{LOAN_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="12" width="100" height="22" uuid="68701412-7dee-4916-ad94-0e8670358104"/>
+				<textFieldExpression><![CDATA[$F{LOAN_CASE_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="12" width="100" height="22" uuid="6249f858-b1ac-441e-8633-8958113f6e56"/>
+				<textFieldExpression><![CDATA[$F{MEMBER_NO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="286" y="12" width="100" height="22" uuid="0001c639-57e5-4a6f-81cc-8ff7ba40a3c6"/>
+				<textFieldExpression><![CDATA[$F{EXPECTED_REPAYMENT_AMOUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="382" y="9" width="100" height="26" uuid="09dee291-bd8c-4189-8b12-5862ac243f7c"/>
+				<textFieldExpression><![CDATA[$F{EXPECTED_REPAYMENT_DATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="482" y="9" width="100" height="26" uuid="8d65f87c-8f7d-4036-ac94-0adac7b9f578"/>
+				<textFieldExpression><![CDATA[$F{SCHEDULE_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="580" y="13" width="100" height="17" uuid="ba988f68-ff7a-4e77-bf58-8ed6121b05d5"/>
+				<textFieldExpression><![CDATA[$F{PAYMENT_STATUS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="680" y="13" width="100" height="21" uuid="1e688a76-4e33-48ed-945d-42a270861021"/>
+				<textFieldExpression><![CDATA[$F{PENALTY_INCURRED}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="640" y="-1" width="140" height="30" uuid="32a2ccb9-fc5f-4610-9d0a-d319cbf86e62"/>
+				<textElement textAlignment="Left">
+					<font fontName="Century Gothic" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="690" y="-1" width="100" height="30" uuid="4cce8a86-501b-4448-af56-74553c917e02"/>
+				<textElement textAlignment="Left">
+					<font fontName="Century Gothic" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="664" y="-1" width="100" height="30" uuid="4229f1ef-629e-42aa-8ab0-6801b095a097"/>
+				<textElement textAlignment="Left">
+					<font fontName="Century Gothic" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[of]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="613" y="0" width="46" height="30" uuid="a5e37367-ead0-4250-a0dc-7f2439812d48"/>
+				<textElement textAlignment="Left">
+					<font fontName="Century Gothic" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Page]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+</jasperReport>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.sift.easycoopfin.models.Accountnameobj" table="Accounts" lazy="false">
+              <composite-id>
+                 <key-property name="accountNumber" type="string" >
+                  <column name="accountno" />
+                 </key-property>
+                 <key-property name="companyId" type="integer" >
+                  <column name="companyId" />
+                 </key-property>
+                 <key-property name="branchId" type="integer">
+                  <column name="branch" />
+                 </key-property>
+               </composite-id>
+               <property name="accountName" column="name" type="string" length="255" not-null="true" lazy="true"/>
+        </class>
+</hibernate-mapping>

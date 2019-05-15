@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<?page title="Journal"?>
+<window title="Journal Postings" border="normal" width="1120px" apply="org.zkoss.bind.BindComposer"
+viewModel="@id('vm2') @init('com.sift.gl.model.TxnViewModel')">
+	 <hbox  align="center" pack="center">
+            <!-- <label id="txndate" value="Transaction Date" /><datebox id="db" value="@bind(vm2.txndate)"/>-->
+            <label id="txndate" value="Transaction Date" /><datebox id="db" value="@load(currrentuserServicex.currusercompany.postDate) @save(vm2.txndate, before='add')"/>
+         </hbox>
+         <idspace>
+         <groupbox id="gb" mold="3d" width="1100px" >
+	    	<grid model="@bind(vm2.txnList)">
+		<columns>
+                        <column label="No." width="30px"/>
+			<column label="Account No." width="100px"/>
+			<column label="Title" width="220px"/>
+                        <column label="Currency" width="60px"/>
+			<column label="Reference" width="90px"/>
+                        <column label="Narrative" width="250px"/>
+			<column label="Debit" width="130px"/>
+                        <column label="Credit" width="130px"/>
+                        <column label="Action" width="70px" />
+		</columns>
+                <template name="model" >
+		 <row>
+                   <label value="@bind(each.txnID)" />  
+                   <label value="@bind(each.accountno)" />
+                   <label value="@bind(each.title)" />
+                   <label value="@bind(each.currency)" />
+                   <label value="@bind(each.reference)" />
+                   <label value="@bind(each.narrative)" />
+                   <doublebox value="@bind(each.debit)" format=",###.##" width="120px" readonly="true" />
+                  <doublebox value="@bind(each.credit)" format=",###.##" width="120px" readonly="true" />
+                   <!--<label value="@bind(each.debit)" />
+                   <label value="@bind(each.credit)" />-->
+                   <button label="Delete" onClick="@command('removeitem',itm=each.txnID)"/>
+                 </row>
+                </template>
+	       </grid>
+               <label value="Balance" id=""/><doublebox id="bal" value="@load(vm2.balance)" format=",###.##" constraint="no empty" readonly="true" width="150px"/>
+	      <textbox id="userid" value="@load(currrentuserServicex.curruser.userId) @save(vm2.duser, before='add')" width='1px' readonly="true" />
+              <textbox id="branch" value="@load(currrentuserServicex.curruser.branch) @save(vm2.dbranch, before='add')" width='1px' readonly="true" />
+              <textbox id="company" value="@load(currrentuserServicex.curruser.companyid) @save(vm2.dcompany, before='add')" width='1px' readonly="true" />
+              <textbox id="yr" value="@load(currrentuserServicex.currusercompany.currentYear) @save(vm2.dyr, before='add')" width='1px' readonly="true" />
+              <textbox id="per" value="@load(currrentuserServicex.currusercompany.currentPeriod) @save(vm2.dper, before='add')" width='1px' readonly="true" />
+              <datebox buttonVisible="false" id="pstdte" value="@load(currrentuserServicex.currusercompany.postDate) @save(vm2.dpostdate, before='add')" width='1px' readonly="true" />
+              <textbox id="tmz" value="@load(currrentuserServicex.currusercompany.timezone) @save(vm2.dtimezone, before='add')" width='1px' readonly="true" />
+         </groupbox>
+           </idspace>
+           <groupbox id="gb2"  width="1100px" >
+               <caption label="Add Transaction"/>
+                <label value="Account No." id=""/>
+               <!--   <div apply="org.zkoss.bind.BindComposer" height="30px" width="1093px" class="combodivarea"
+        viewModel="@id('vm') @init('com.sift.gl.model.AccountsViewModel', arg1='02', arg2='7')"> -->
+              <div apply="org.zkoss.bind.BindComposer" height="30px" width="1093px" class="combodivarea"
+        viewModel="@id('vm') @init('com.sift.gl.model.AccountsViewModel', arg1={currrentuserServicex.curruser.branch}, arg2={currrentuserServicex.curruser.companyid})">   
+                 <bandbox id="abd" mold="rounded" autodrop="true" value="@save(vm2.currtxn.accountno)" onChange="@global-command('addtxn',selectedData=vm.selectedAccount)" width="130px" >  
+                   <bandpopup>
+                       <hbox>
+                           A/c No./Title:
+                           <textbox value="@bind(vm.keyword)" />
+                           <button label="Search" onClick="@command('search')"/>
+                       </hbox>
+                       <listbox height="250px" width="450px" mold="paging" autopaging="true" emptyMessage="No Account found in the result"
+                     onSelect="@command('setcomp',parentcomp=abd) @global-command('addtxn',selectedData=vm.selectedAccount)"  model="@load(vm.accountList)" selectedItem="@bind(vm.selectedAccount)">
+                           <listhead>
+                               <listheader label="Account No." />
+                               <listheader label="Description" />
+                           </listhead>
+                           <template name="model"  var="acc">
+                           <listitem>
+                                <listcell label="@load(acc.accountNo)"/>
+                                <listcell label="@load(acc.name)"/>
+                           </listitem>
+                           </template>
+                       </listbox>
+                   </bandpopup>
+                  </bandbox>
+                	
+                        <label value="Title" id=""/><textbox id="desc" value="@load(vm.selectedAccount.name) @save(vm2.currtxn.title)"/>	
+                        <label value="Currency" id=""/><textbox id="curr" value="@load(vm.selectedAccount.currency) @save(vm2.currtxn.currency)" cols="5"  width="40px"/>
+                        <label value="Reference" id=""/><textbox id="ref" value="@bind(vm2.currtxn.reference)" width="90px"/>
+                        <label value="Narrative" id=""/><textbox id="narr" value="@bind(vm2.currtxn.narrative)" constraint="no empty"/>
+                        <label value="Debit" id=""/><doublebox id="deb" value="@bind(vm2.currtxn.debit)" format=",###.##" constraint="no empty,no negative"/>
+                        <label value="Credit" id=""/><doublebox id="cre" value="@bind(vm2.currtxn.credit)" format=",###.##" constraint="no empty,no negative"/>
+	    		
+                        
+                        </div>
+                        <!--<textbox id="userid" value="${user.companyid}"/>--> 
+                        
+                        <button label="Add" onClick="@command('add') @global-command('setcompnull',parentcomp=abd,ctrl1=desc,ctrl2=curr)">
+                        </button>
+                        <separator height="20px" />
+                        <label value="@load(vm2.msg)" />	
+	      </groupbox>
+	<button label="Save" onClick="@command('savetxns')"/>
+</window>

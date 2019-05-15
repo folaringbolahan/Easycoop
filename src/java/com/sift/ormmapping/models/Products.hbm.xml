@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.sift.easycoopfin.models.Products" table="Products" lazy="false">
+        <id name="id" column="id" type="integer" unsaved-value="0">
+            <generator class="increment">
+            </generator>
+        </id>
+        <property name="code" column="code" type="string" length="4" not-null="true" lazy="false"/>
+        <property name="isDeleted" type="byte" length="3" not-null="true" lazy="false">
+            <column name="is_deleted" default="0"/>
+        </property>
+        <property name="hasInterest" type="byte" length="3" not-null="true" lazy="false">
+            <column name="has_interest" default="0"/>
+        </property>
+        <property name="isDefault" type="byte" length="3" not-null="false" lazy="false">
+            <column name="is_default" default="0"/>
+        </property>
+        <property name="isTaxable" type="byte" length="3" not-null="false" lazy="false">
+            <column name="is_taxable" default="0"/>
+        </property>
+        <property name="hasPenalty" type="byte" length="3" not-null="false" lazy="false">
+            <column name="has_penalty" default="0"/>
+        </property>
+        <property name="name" column="name" type="string" length="50" not-null="true" lazy="false"/>
+        <property name="taxCode1" column="tax_code1" type="string" length="6" not-null="false" lazy="false"/>
+        <property name="taxCode2" column="tax_code2" type="string" length="6" not-null="false" lazy="false"/>
+        <property name="taxCode3" column="tax_code3" type="string" length="6" not-null="false" lazy="false"/>
+        <property name="companyId" column="company_id" type="integer" length="10" not-null="true" lazy="false"/>
+        <property name="branchId" column="branch_id" type="integer" length="10" not-null="true" lazy="false"/>
+        <property name="currencyId" column="currency_id" type="integer" length="10" not-null="false" lazy="false"/>
+        <property name="initialAmountMax" type="float" length="10" not-null="true" lazy="false">
+            <column name="initial_amount_max" default="0"/>
+        </property>
+        <property name="initialAmountMin" type="float" length="10" not-null="true" lazy="false">
+            <column name="initial_amount_min" default="0"/>
+        </property>
+        <property name="interestRateMin" type="float" length="10" not-null="true" lazy="false">
+            <column name="interest_rate_min" default="0"/>
+        </property>
+        <property name="penalty" type="float" length="10" not-null="true" lazy="false">
+            <column name="penalty" default="0"/>
+        </property>
+        <property name="interestRateMax" type="float" length="10" not-null="true" lazy="false">
+            <column name="interest_rate_max" default="0"/>
+        </property>
+        <property name="loanDuration" type="int" length="10" not-null="false" lazy="false">
+            <column name="loan_duration" default="0"/>
+        </property>
+        <property name="interestRate" column="interest_rate" type="float" length="10" not-null="true" lazy="false"/>
+        <property name="segmentCode" column="segment_code" type="string" length="100" not-null="true" lazy="false"/>
+        <property name="productTypeCode" column="product_type_code" type="string" length="4" not-null="true" lazy="false"/>
+        <property name="loanTypeCode" column="loan_type_code" type="string" length="4" not-null="false" lazy="false"/>
+        <property name="isActive" type="byte" length="3" not-null="false" lazy="false">
+            <column name="is_active" default="0"/>
+        </property>            
+        <property name="defaultPenaltyDays" type="int" length="10" not-null="true" lazy="false">
+            <column name="default_penalty_days" default="0"/>
+        </property>
+        <property name="penaltyFormula" column="penalty_formula" type="string" length="45" not-null="false" lazy="false"/>
+    </class>
+</hibernate-mapping>

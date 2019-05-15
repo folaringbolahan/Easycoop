@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="false" path="/Easycoop">
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" logAbandoned="true" maxActive="100" maxIdle="30" maxWait="10000" name="jdbc/easycoopfin" password="Africaprudentials$" removeAbandoned="true" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/easycoopfin" username="root" validationQuery="select 1"/>
+  
+  <env-entry>
+    <description>Webservice URl call</description>
+    <env-entry-name>webservicebaseurl</env-entry-name>
+    <env-entry-type>java.lang.String</env-entry-type>
+    <env-entry-value>http://localhost:8080/Easycoopfin/webserv</env-entry-value>
+</env-entry>
+</Context>

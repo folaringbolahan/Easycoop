@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.sift.easycoopfin.models.Branch" table="Branch" lazy="false">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="companyId" column="company_id" type="integer" length="10" not-null="true" lazy="false"/>
+                <property name="branchCode" column="branch_code" type="string" length="20" not-null="true" lazy="false"/>
+		<property name="branchName" column="branch_name" type="string" length="50" not-null="true" lazy="false"/>
+                
+	</class>
+</hibernate-mapping>

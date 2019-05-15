@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: DuKe TeAm
+License Type: Purchased
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.sift.easycoopfin.models.Member" table="Member" lazy="false">
+        <id name="id" column="member_id" type="integer" unsaved-value="0">
+            <generator class="increment">
+            </generator>
+        </id>
+        <property name="companyId" column="company_id" type="integer" length="11" not-null="true" lazy="false"/>
+        <property name="branchId" column="branch_id" type="integer" length="11" not-null="true" lazy="false"/>
+        <property name="statusId" column="status_id" type="integer" length="11" not-null="true" lazy="false"/>
+        <property name="firstName" column="first_name" type="string" length="45" not-null="true" lazy="false"/>
+        <property name="surname" column="surname" type="string" length="45" not-null="true" lazy="false"/>
+        <property name="middleName" column="middle_name" type="string" length="45" not-null="false" lazy="false"/>
+        <property name="gender" column="gender" type="string" length="1" not-null="false" lazy="false"/>
+        <property name="memberNo" column="member_no" type="string" length="15" not-null="false" lazy="false"/>
+        <property name="phoneNumber" column="phone_no_1" type="string" length="45" not-null="false" lazy="false"/>
+        <property name="emailAddress" column="email_add_1" type="string" length="45" not-null="false" lazy="false"/>
+    </class>
+</hibernate-mapping>
